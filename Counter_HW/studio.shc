@@ -1,0 +1,270 @@
+/**
+
+**************Starlight 3.0**************
+*										*
+*	STarlight Universal Digital			*
+*	Input Output For Counter			*
+*										*
+*	STUDIO.shc							*
+*										*
+*	2023. 06. 23						*
+*	Maded Bi P. J. Kim					*
+*										*
+*										*
+*	Starlight,							*
+*	Virtual Machine in					*
+*	Embedded System						*
+*										*
+*	**Starlight OOP Center**			*
+*										*
+*****************************************
+
+**/
+
+svm_init(){
+	main();
+}
+
+///Standard Operators
+$import(stuop);
+$class(str){
+	#string:byte[256];
+}
+
+$class(cout){
+	#val__:byte[4];
+}
+
+$class(cin){
+	#val__:byte[4];
+}
+
+///Default Constants
+$const(TRUE, 1, int);
+$const(FALSE, 0, int);
+$const(NULL, 0, ref);
+
+
+
+
+///Universal Output Objects
+$const(STD_cout, 4, cout);
+$const(MATR_cout, 4, cout);
+$const(FTDI_cout, 2, cout);
+$const(BLUE_cout, 1, cout);
+
+///Output Functions
+///$const(Print$ref, 0x00010012, ref);
+///$const(OLED_Print$ref, 0x00010012, ref);
+$const(FTDI_Print$ref, 0x000E2012, ref);
+///$const(BLUE_Print$ref, 0x000F2012, ref);
+$const(MATR_PrintText$int$ref$int, 0x01100012, ref);
+$const(MATR_1, 0x00008000, int);
+$const(MATR_2, 0x00004000, int);
+$const(MATR_3, 0x00002000, int);
+$const(MATR_4, 0x00001000, int);
+
+
+
+
+
+///문자열 관련 기본 함수
+$const(StrCpy$ref$ref, 0x00010011, ref, ref);
+$const(StrCpy$ref$int, 0x00012011, ref, ref);
+$const(StrCpy$ref$float, 0x00013011, ref, ref);
+$const($le$ref$ref, 0x00010011, ref, ref);
+$const($le$ref$int, 0x00012011, ref, ref);
+$const($le$ref$float, 0x00013011, ref, ref);
+$const(StrCat$ref$ref, 0x00020011, ref, ref);
+$const(StrCat$ref$int, 0x00022011, ref, ref);
+$const(StrCat$ref$float, 0x00023011, ref, ref);
+$const($lt$ref$ref, 0x00020011, ref, ref);
+$const($lt$ref$int, 0x00022011, ref, ref);
+$const($lt$ref$float, 0x00023011, ref, ref);
+#stdStr(0):str;
+
+///Cout 계열 함수
+$shl(out:cout, st:ref) : cout{
+	COUT_Print__(out, st);
+	
+	return(out);
+}
+
+$shl(out:cout, st:str) : cout{
+	COUT_Print__(out, _st);
+	
+	return(out);
+}
+
+$shl(out:cout, st:int) : cout{
+	#s(0):str;
+	StrCpy(_s, st);
+	COUT_Print__(out, _s);
+	
+	return(out);
+}
+
+$shl(out:cout, st:float) : cout{
+	#s(0):str;
+	StrCpy(_s, st);
+	COUT_Print__(out, _s);
+	
+	return(out);
+}
+
+COUT_Print__(out:cout, st:ref){
+	if(int(out) == 4){
+		MATR_PrintText(MATR_1, st, 15);
+	}
+	elif(int(out) == 2){
+		FTDI_Print(st);
+	}
+}
+
+
+
+
+
+$add(st1:ref, st2:ref) : str{
+	#s(0):str;
+	StrCpy(_s, st1);
+	StrCat(_s, st2);
+	return(s);
+}
+
+$add(st1:str, st2:ref) : str{
+	#s(0):str;
+	StrCpy(_s, _st1);
+	StrCat(_s, st2);
+	return(s);
+}
+
+$add(st1:str, st2:str) : str{
+	#s(0):str;
+	StrCpy(_s, _st1);
+	StrCat(_s, _st2);
+	return(s);
+}
+
+$add(st1:ref, st2:str) : str{
+	#s(0):str;
+	StrCpy(_s, st1);
+	StrCat(_s, _st2);
+	return(s);
+}
+
+
+///String Format Functions
+$const($mod$ref$int, 0x00030011, ref, str);
+$const($mod$ref$float, 0x00032011, ref, str);
+$const($mod$ref$int64, 0x00031011, ref, str);
+$const($mod$ref$ref, 0x00030011, ref, str);
+
+///String to Value Functions
+$const(Atoi$ref, 0x00040011, ref, int);
+$const(Atol$ref, 0x00041011, ref, int64);
+$const(Atof$ref, 0x00042011, ref, float);
+///$const(Xtoi$ref, 0x000C4012, ref, float);
+
+
+///Strlen
+$const(StrCmp$ref$ref, 0x00050011, ref, int);
+$const(StrLen$ref$ref, 0x00052011, ref, int);
+$const(StrnCmp$ref$ref$int, 0x00053011, ref, int);
+
+
+///Timer Functions
+$const(Tick, 0x00100011, ref, int);
+$const(Delay$int, 0x00101011, ref);
+$const(DelayMicroseconds$int, 0x00103011, ref);
+
+
+
+///OLED 추가 지원 함수
+///$const(OLED_Clear, 0x00017012, ref);
+///나머지 함수는 color.shc에 정의됨.
+
+///Event LED 관련함수
+///$const(ELED_Begin, 0x01010012, ref);
+///$const(ELED_Write$int$int$int, 0x01012012, ref);
+///$const(ELED_End, 0x01011012, ref);
+
+///Sensor 관련 함수
+///$const(SENSOR_Begin, 0x01080012, ref);
+///$const(SENSOR_End, 0x01081012, ref);
+///$const(SENSOR_Value, 0x01082012, ref, int);
+
+
+$const(TrueRandom, 0x01083012, ref, int);
+$const(Random, 0x01084012, ref, int);
+
+///Button 관련 함수
+$const(SWITCH_Read, 0x000A0012, ref, int);
+
+
+///버튼 관련 상수
+$const(SWITCH_1, 0x01, int);
+$const(SWITCH_2, 0x02, int);
+$const(SWITCH_BOTH, 0x03, int);
+$const(SWITCH_1_LONG, 0x05, int);
+$const(SWITCH_2_LONG, 0x06, int);
+$const(SWITCH_BOTH_LONG, 0x07, int);
+
+
+
+///UART 관련 추가제공 함수
+$const(FTDI_Begin, 0x000E0012, ref);
+$const(FTDI_End, 0x000E1012, ref);
+$const(FTDI_Write$int, 0x000E4012, ref, int);
+$const(FTDI_Read, 0x000E5012, ref, int);
+$const(FTDI_Available, 0x000E6012, ref, int);
+$const(FTDI_Scan$int$ref, 0x000E7012, ref, int);
+
+///UART 통신제어 속도변경
+$const(FTDI_Begin$int, 0x000F9012, ref);
+
+$const(MATR_SendData$int$int, 0x07100012, ref);
+$const(MATR_SetColor$int$int, 0x07101012, ref);
+$const(MATR_FillColor$int$int, 0x07102012, ref);
+$const(MATR_Arrow$int$int, 0x07103012, ref);
+$const(MATR_AddrWindow$int$int$int$int$int, 0x07104012, ref);
+$const(MATR_SetDot$int$int, 0x07105012, ref);
+$const(MATR_Print2$int$ref, 0x07106012, ref);
+$const(MATR_Print$int, 0x07107012, ref);
+$const(MATR_Clear$int, 0x07108012, ref);
+
+$const(SENSOR_Begin, 0x07181012, ref);
+$const(SENSOR_End, 0x07182012, ref);
+$const(SENSOR_DATAARR$int, 0x07180012, ref, ref);
+$const(SENSOR_IR$int, 0x07183012, ref);
+
+
+$const(EmergencyStop, 0x07200012, ref, int);
+$const(GetMode, 0x07201012, ref, int);
+$const(SetDebugLED$int$int, 0x07202012, ref);
+$const(GetDebugLED$int, 0x07203012, ref, int);
+$const(PWM_Begin, 0x07204012, ref);
+$const(PWM_End, 0x07205012, ref);
+$const(PWM_Write$int$int, 0x07206012, ref);
+$const(PWM_Get$int, 0x07207012, ref, int);
+
+
+
+
+
+
+##for{x}from{a}to{b}(for({x}={a},{x}<={b},{x}={x}+1));
+##{a}if{b}else{c}(if({b},{a},{c}));
+##if{a}then{b}else{c}(if({a},{b},{c}));
+##if{a}then{b}elif{c}then{d}else{e}(if({a},{b},if({c},{d},{e})));
+##if{a}then{b}elif{c}then{d}elif{e}then{f}else{g}(if({a},{b},if({c},{d},if({e},{f},{g}))));
+##if{a}then{b}elif{c}then{d}elif{e}then{f}elif{g}then{h}else{i}(if({a},{b},if({c},{d},if({e},{f},if({g},{h},{i})))));
+##if{a}then{b}elif{c}then{d}elif{e}then{f}elif{g}then{h}elif{i}then{k}else{l}(if({a},{b},if({c},{d},if({e},{f},if({g},{h},if({i},{k},{l}))))));
+
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+
+
+
+$import(studio.shc);
+
+$class(sensor_t){
+	#raw__:ref;
+	#blackMin__:ref;
+	#whiteMin__:ref;
+	#value__:ref;
+	
+	GetRawValue():int{
+		#result():int;
+		result = int(self.raw__);
+		return(result);
+	}
+	
+	GetBlackMin():int{
+		#result():int;
+		result = int(self.blackMin__);
+		return(result);
+	}
+	
+	SetBlackMin(value:int){
+		int(self.blackMin__) = value;
+	}
+	
+	GetWhiteMin():int{
+		#result():int;
+		result = int(self.whiteMin__);
+		return(result);
+	}
+	
+	SetWhiteMin(value:int){
+		int(self.whiteMin__) = value;
+	}
+	
+	GetValue():int{
+		#result():int;
+		result = int(self.value__);
+		return(result);
+	}
+}
+
+#sensor():sensor_t[8];
+SENSOR_Init(){
+	#i(0):int;
+	for (i) from (0) to (7){
+		sensor[i].raw__ = SENSOR_DATAARR(0) + (4 * i);
+		sensor[i].blackMin__ = SENSOR_DATAARR(1) + (4 * i);
+		sensor[i].whiteMin__ = SENSOR_DATAARR(2) + (4 * i);
+		sensor[i].value__ = SENSOR_DATAARR(3) + (4 * i);
+	}
+	SENSOR_Threshold(1024, 768);
+}
+
+SENSOR_Threshold(thh:int, thl:int){
+	int(SENSOR_DATAARR(5)) = thh;
+	int(SENSOR_DATAARR(6)) = thl;
+}
+
+SENSOR_GetState():int{
+	#result():int;
+	result = int(SENSOR_DATAARR(4));
+	result = (~result) & 0xFF;
+	return(result);
+}
+
+
+
+
+
+
+
+
+

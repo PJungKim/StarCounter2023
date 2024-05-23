@@ -1,0 +1,132 @@
+
+$import(studio.shc);
+
+$const(ARROW_RIGHT, 0, int);
+$const(ARROW_UP, 1, int);
+$const(ARROW_LEFT, 2, int);
+$const(ARROW_DOWN, 3, int);
+
+///RGB 기준 색상 매핑입니다.
+///RYB 전광판 사용 시 주의 바랍니다.
+$const(RED, 0xFF0000, int);
+$const(YELLOW, 0xFFFF00, int);
+$const(GREEN, 0x00FF00, int);
+$const(CYAN, 0x00FFFF, int);
+$const(BLUE, 0x0000FF, int);
+$const(VIOLET, 0x6600FF, int);
+$const(MAGENTA, 0xFF00FF, int);
+$const(ROSE, 0xFF0066, int);
+$const(WHITE, 0xFFFFFF, int);
+
+///RYB 전광판 사용 시 색상은 뒤에 숫자 1을 붙이시기 바랍니다.
+$const(RED1, 0xFF0000, int);
+$const(ORANGE1, 0xFF4400, int);
+$const(YELLOW1, 0xFFFF00, int);
+$const(WHITE1, 0xFFFFFF, int);
+$const(BLUE1, 0x0000FF, int);
+$const(VIOLET1, 0x6600FF, int);
+$const(MAGENTA1, 0xFF00FF, int);
+$const(ROSE1, 0xFF0066, int);
+$const(PINK1, 0xFF3388, int);
+$const(GREEN1, 0x00FF00, int);
+$const(LIME1, 0x99FF00, int);
+$const(MINT1, 0x00FF44, int);
+$const(CYAN1, 0x00FFFF, int);
+
+
+##Print {text} with {color}(Print3({text}, {color}));
+
+$class(matrix_t){
+	#cs:int;
+	#color__:int;///Private Variable
+	#fps__:int;///Private Variable
+	
+	Arrow(direction:int){
+		MATR_Arrow(self.cs, direction);
+	}
+	
+	SetColor(color:int){
+		self.color__ = color;
+		MATR_SetColor(self.cs, color);
+	}
+	
+	Print2(text:ref){
+		MATR_Print2(self.cs, text);
+	}
+	
+	Print2(text:ref, color:int){
+		MATR_SetColor(self.cs, color);
+		MATR_Print2(self.cs, text);
+		MATR_SetColor(self.cs, self.color__);
+	}
+	
+	Print3(text:ref, color:int){
+		MATR_SetColor(self.cs, color);
+		MATR_Print2(self.cs, text);
+		MATR_SetColor(self.cs, self.color__);
+		MATR_Print(self.cs);
+	}
+	
+	Print3(text:str, color:int){
+		MATR_SetColor(self.cs, color);
+		MATR_Print2(self.cs, _text);
+		MATR_SetColor(self.cs, self.color__);
+		MATR_Print(self.cs);
+	}
+	
+	FillColor(color:int){
+		MATR_FillColor(self.cs, color);
+	}
+	
+	AddrWindow(x:int, y:int, w:int, h:int){
+		MATR_AddrWindow(self.cs, x, y, w, h);
+	}
+	
+	SetDot(color:int){
+		MATR_SetDot(self.cs, color);
+	}
+	
+	Print(){
+		MATR_Print(self.cs);
+	}
+	
+	Print(text:ref){
+		MATR_PrintText(self.cs, text, self.fps__);
+	}
+	
+	Print(text:str){
+		MATR_PrintText(self.cs, _text, self.fps__);
+	}
+	
+	SetFPS(fps:int){
+		self.fps__ = fps;
+	}
+	
+	Clear(){
+		MATR_Clear(self.cs);
+	}
+}
+
+matrix_t(cs:int):matrix_t{
+	#result():matrix_t;
+	result.cs = cs;
+	result.SetFPS(15);
+	result.SetColor(RED);
+	return(result);
+}
+
+matrix_t(cs:int, color:int):matrix_t{
+	#result():matrix_t;
+	result.cs = cs;
+	result.SetFPS(15);
+	result.SetColor(color);
+	return(result);
+}
+
+matrix_t(cs:int, color:int, fps:int):matrix_t{
+	#result():matrix_t;
+	result.cs = cs;
+	result.SetFPS(fps);
+	result.SetColor(color);
+	return(result);
+}
