@@ -42,6 +42,25 @@ main(){
 - 오른쪽 LED Matrix에 자홍색 아랫방향 화살표가 표시되는지 확인하세요.
   - 표시되지 않으면 전원을 완전히 끄고(USB까지 뽑은 상태) 버튼 2개를 모두 누른 상태에서 전원을 다시 켜면 됩니다.
 
+    <image src="..\Res\portSetting\matrix4.jpg" width="30%" height="30%">
+
 - PC의 시리얼 포트가 어디와 연결되었는지 확인한 다음 설정에 들어가서 COM 포트 번호를 바꿉니다.
 
-- 2번을 눌러 컴파일한 후 업로드하면 됩니다.
+  <image src="..\Res\portSetting\port.png" width="50%" height="50%">
+      
+  - Starlit 프로그램에서 6번을 누르면 어떤 포트를 쓸지 정할 수 있다. 그 다음 4번을 누르면 포트를 입력하면 되는데, `COMx`와 같은 형태로 포트 번호를 적어주면 된다. 모두 적으면 0번을 눌러 저장한다.
+ 
+    <image src="..\Res\portSetting\pref1.png" width="45%" height="45%">
+
+    <image src="..\Res\portSetting\pref2.png" width="45%" height="45%">
+
+  - 그렇게 했으면 2번을 눌러 컴파일한 후 업로드하면 됩니다.
+
+    <image src="..\Res\portSetting\upload1.png" width="45%" height="45%">
+    <image src="..\Res\portSetting\upload2.png" width="45%" height="45%">
+    <image src="..\Res\portSetting\upload3.png" width="45%" height="45%">
+
+
+
+
+    
