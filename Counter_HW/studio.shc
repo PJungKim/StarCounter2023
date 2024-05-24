@@ -67,7 +67,8 @@ $const(MATR_4, 0x00001000, int);
 
 
 
-
+##strcpy(StrCpy);
+##strcat(StrCat);
 ///문자열 관련 기본 함수
 $const(StrCpy$ref$ref, 0x00010011, ref, ref);
 $const(StrCpy$ref$int, 0x00012011, ref, ref);
@@ -167,6 +168,9 @@ $const(Atof$ref, 0x00042011, ref, float);
 ///$const(Xtoi$ref, 0x000C4012, ref, float);
 
 
+##strcmp(StrCmp);
+##strncmp(StrnCmp);
+##strlen(StrLen);
 ///Strlen
 $const(StrCmp$ref$ref, 0x00050011, ref, int);
 $const(StrLen$ref$ref, 0x00052011, ref, int);
