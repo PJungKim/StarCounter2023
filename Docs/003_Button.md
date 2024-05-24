@@ -17,4 +17,7 @@
 
   |LED|상수|
   |----|----|
+  |빨강|`BUTTON_LED_RED`|
+  |파랑|`BUTTON_LED_BLUE`|
+  
   
