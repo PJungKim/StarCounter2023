@@ -82,7 +82,7 @@
   |----|----|
   |1||
   |2||
-  |3|통신 규격 정하기|
+  |3|[통신 규격 정하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/703_Communication.md)|
   |4||
   
 
