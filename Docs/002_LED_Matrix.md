@@ -22,3 +22,24 @@
   ```
   matrix1.Print("%02d" % (Tick() / 1000 % 100)) with (BLUE1);
   ```
+
+## 2. 예제 : 1초마다 1부터 10까지 늘어나는 계수기 디스플레이
+
+- 소스 코드
+
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+
+  main(){
+      matrix = matrix_t(MATR_3);
+      for(i)from(1)to(10){
+          matrix.Print("%02d" % i) with (RED1);
+          Delay(1000);
+      }
+  }
+  ```
+
+
+  
