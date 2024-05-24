@@ -74,6 +74,6 @@
 
   |번호|내용|
   |----|----|
-  |1|["Hello, World!" 출력하기](zetin.uos.ac.kr)|
+  |1|["Hello, World!" 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/001_Hello_World.md)|
 
 
