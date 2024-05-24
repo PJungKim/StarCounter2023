@@ -2,8 +2,8 @@
 ///먼저, 가장 중요한 studio.shc(계수기용 스튜디오)와
 ///LED Matrix 라이브러리를 임포트합니다.
 
-$import(..\..\studio.shc);
-$import(..\..\matrix.shc);
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
 $target(counter.sbc);
 
 ///계수기를 사용하기 전, LED Matrix 객체를 선언합니다.
