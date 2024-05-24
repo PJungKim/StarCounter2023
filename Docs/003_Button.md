@@ -13,6 +13,11 @@
   |빨간 버튼|`SWITCH_1`|
   |파란 버튼|`SWITCH_2`|
   |동시에 누름|`SWITCH_BOTH`|
+  |빨강 길게|`SWITCH_1_LONG`|
+  |파랑 길게|`SWITCH_2_LONG`|
+  |동시 길게|`SWITCH_BOTH_LONG`|
+
+
 
 - LED
 
