@@ -67,3 +67,12 @@
   - NOrmalized : Calibration을 거친 후의 센서 값을 확인해 본다.
   - STate : 물체의 인식 여부를 확인한다. Threshold값을 여기서 설정할 수 있으나, 대회 중 Threshold값을 건드리지는 말자.
   - 화살표 : 주행 방향을 임의로 바꿀 때 사용한다.
+
+## 3. 계수기용 Starlit 익히기
+
+- 아래 내용은 Starlit 3.2 코드로 작성되었습니다.
+|번호|내용|
+|----|----|
+|1|["Hello, World!" 출력하기](zetin.uos.ac.kr)|
+
+
