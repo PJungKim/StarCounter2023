@@ -20,5 +20,5 @@
 - (matrix_t).Print 함수에 `%02d` 등을 사용하여 숫자를 출력할 수 있습니다.
 - 예제 : 현재시간(초) 출력하기
   ```
-  matrix1.Print("%02d" % (Tick() / 1000 % 100));
+  matrix1.Print("%02d" % (Tick() / 1000 % 100)) with (BLUE1);
   ```
