@@ -71,8 +71,9 @@
 ## 3. 계수기용 Starlit 익히기
 
 - 아래 내용은 Starlit 3.2 코드로 작성되었습니다.
-|번호|내용|
-|----|----|
-|1|["Hello, World!" 출력하기](zetin.uos.ac.kr)|
+
+  |번호|내용|
+  |----|----|
+  |1|["Hello, World!" 출력하기](zetin.uos.ac.kr)|
 
 
