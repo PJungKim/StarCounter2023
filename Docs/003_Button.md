@@ -27,7 +27,9 @@
 - 9보다 커져도 프로그램 종료
 
   ```
-  $import
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
 
   main(){
       /// 버튼 불 켜기
