@@ -76,4 +76,14 @@
   |----|----|
   |1|["Hello, World!" 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/001_Hello_World.md)|
 
+## 4. 계수기 코딩하기
+
+  |번호|내용|
+  |----|----|
+  |1||
+  |2||
+  |3|통신 규격 정하기|
+  |4||
+  
+
 
