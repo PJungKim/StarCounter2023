@@ -77,6 +77,7 @@
   |1|["Hello, World!" 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/001_Hello_World.md)|
   |2|[LED Matrix에 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/002_LED_Matrix.md)|
   |3|[버튼 이용하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/003_Button.md)|
+  |4|[화살표 출력과 스위치 방향](https://zetin.uos.ac.kr)|
 
 ## 4. 계수기 코딩하기
 
