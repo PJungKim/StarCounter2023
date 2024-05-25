@@ -80,6 +80,8 @@
 
 ## 4. 계수기 코딩하기
 
+- 아래 내용은 Starlit 3.2 코드로 작성되었습니다.
+
   |번호|내용|
   |----|----|
   |1|[Calibration, Normalization](https://zetin.uos.ac.kr)|
