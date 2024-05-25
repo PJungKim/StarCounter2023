@@ -7,31 +7,20 @@ $const(ARROW_LEFT, 2, int);
 $const(ARROW_DOWN, 3, int);
 
 ///RGB 기준 색상 매핑입니다.
-///RYB 전광판 사용 시 주의 바랍니다.
 $const(RED, 0xFF0000, int);
-$const(YELLOW, 0xFFFF00, int);
+$const(ORANGE, 0xFF3300, int);
+$const(YELLOW, 0xFFAA00, int);
+$const(GREENYELLOW, 0xAAFF00, int);
 $const(GREEN, 0x00FF00, int);
+$const(MINT, 0x00FF55, int);
 $const(CYAN, 0x00FFFF, int);
+$const(SEA, 0x0066FF, int);
 $const(BLUE, 0x0000FF, int);
 $const(VIOLET, 0x6600FF, int);
 $const(MAGENTA, 0xFF00FF, int);
 $const(ROSE, 0xFF0066, int);
 $const(WHITE, 0xFFFFFF, int);
 
-///RYB 전광판 사용 시 색상은 뒤에 숫자 1을 붙이시기 바랍니다.
-$const(RED1, 0xFF0000, int);
-$const(ORANGE1, 0xFF4400, int);
-$const(YELLOW1, 0xFFFF00, int);
-$const(WHITE1, 0xFFFFFF, int);
-$const(BLUE1, 0x0000FF, int);
-$const(VIOLET1, 0x6600FF, int);
-$const(MAGENTA1, 0xFF00FF, int);
-$const(ROSE1, 0xFF0066, int);
-$const(PINK1, 0xFF3388, int);
-$const(GREEN1, 0x00FF00, int);
-$const(LIME1, 0x99FF00, int);
-$const(MINT1, 0x00FF44, int);
-$const(CYAN1, 0x00FFFF, int);
 
 
 ##Print {text} with {color}(Print3({text}, {color}));
