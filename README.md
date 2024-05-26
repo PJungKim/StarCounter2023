@@ -93,7 +93,7 @@
   |--|--|
   |1|[변수와 연산자](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/101_Starlit_Variable.md)|
   |2|[조건문과 반복문](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/102_Condition.md)|
-  |3|배열과 반복 연산|
+  |3|[배열과 반복 연산](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/103_Array.md)|
   |4|함수|
   |5|Call-By-Reference, Return-By-Reference와 Reference 변수|
   |6|객체와 클래스|
