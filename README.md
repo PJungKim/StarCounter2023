@@ -89,9 +89,9 @@
 
 - 아래 내용은 계수기 Starlit 문법과 관련된 리뷰입니다.
 
-  |||
+  |번호|내용|
   |--|--|
-  |1|변수와 연산자|
+  |1|[변수와 연산자](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/101_Starlit_Variable.md)|
   |2|조건문과 반복문|
   |3|배열과 반복 연산|
   |4|함수|
