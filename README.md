@@ -95,7 +95,7 @@
   |2|[조건문과 반복문](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/102_Condition.md)|
   |3|[배열과 반복 연산](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/103_Array.md)|
   |4|[함수](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/104_Function.md)|
-  |5|Call-By-Reference, Return-By-Reference와 Reference 변수|
+  |5|[Call-By-Reference, Return-By-Reference와 Reference 변수](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/105_Reference.md)|
   |6|객체와 클래스|
 
 ## 4. 계수기 코딩하기
