@@ -78,6 +78,22 @@
   |2|[LED Matrix에 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/002_LED_Matrix.md)|
   |3|[버튼 이용하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/003_Button.md)|
   |4|[화살표 출력과 스위치 방향](https://zetin.uos.ac.kr)|
+  |5|[LED Matrix에 원하는 위치에 원하는 점 출력하기](https://zetin.uos.ac.kr)|
+  |6|[LED Matrix의 추가 기능](https://zetin.uos.ac.kr)|
+  |7|[센서 값 받아오기](https://zetin.uos.ac.kr)|
+  |8|[인터럽트](https://zetin.uos.ac.kr)|
+  |9|[SPI로 외부 장치 건드리기](https://zetin.uos.ac.kr)|
+  |10|[UART로 PC와 통신하기](https://zetin.uos.ac.kr)|
+
+### 3.1. Starlit 구문의 이해
+
+- 아래 내용은 계수기 Starlit 문법과 관련된 리뷰입니다.
+  |1|변수와 연산자|
+  |2|조건문과 반복문|
+  |3|배열과 반복 연산|
+  |4|함수|
+  |5|Call-By-Reference, Return-By-Reference와 Reference 변수|
+  |6|객체와 클래스|
 
 ## 4. 계수기 코딩하기
 
