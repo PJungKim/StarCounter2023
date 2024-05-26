@@ -58,6 +58,9 @@
   $target(counter.sbc);
 
   main(){
+      /// LED Matrix 초기화
+      matrix = matrix_t(MATR_3);
+  
       /// 버튼 불 켜기
       /// 누가 설계했는지는 모르지만 빨간색 LED 밝기가 너무 밝네요 ㅠㅠ
       PWM_Write(BUTTON_LED_RED, 64)
@@ -73,12 +76,14 @@
               if(9 < value){
                   break;
               }
+              matrix.Print("%02d" % value) with (PURPLE);
           }
           elif(SWITCH2 == sw){
               value -= 1;
               if(0 > value){
                   break;
               }
+              matrix.Print("%02d" % value) with (PURPLE);
           }
       }
   }
