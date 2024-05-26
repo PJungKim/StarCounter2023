@@ -80,7 +80,7 @@ img.data[0:2, y:0:7, x:0:7] = int(127/((x - 3.5) * (x - 3.5) + (y - 3.5) * (y - 
 
 <image src = "..\Res\Starlit\Circle.png" width = "30%">
 
-### 2.3.3. 체크무늬
+#### 2.3.3. 체크무늬
 
 ```
 img.data[0, y:0:7, x:0:7] = 255 * ((x + y) % 2);
