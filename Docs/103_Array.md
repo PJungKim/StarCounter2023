@@ -68,12 +68,15 @@ main(){
 }
 ```
 
+<image src = "..\Res\Starlit\Gradation.png" width = "30%">
+
 #### 2.3.2. 원 모양
 
 ```
 img.data[0:2, y:0:7, x:0:7] = int(127/((x - 3.5) * (x - 3.5) + (y - 3.5) * (y - 3.5)));
 ```
 
+<image src = "..\Res\Starlit\Circle.png" width = "30%">
 
 ### 2.3.3. 체크무늬
 
@@ -82,7 +85,8 @@ img.data[0, y:0:7, x:0:7] = 255 * ((x + y) % 2);
 img.data[2, y:0:7, x:0:7] = 255 * ((x + y + 1) % 2);
 ```
 
-
+<image src = "..\Res\Starlit\Check.png" width = "30%">
+    
 ## 3. 배열의 크기 구하기
 
 - 다른 파일에서 정의된 배열을 사용한다면 크기를 바로 맞추기는 어려울 수도 있으므로 sizeof 연산자를 적극적으로 활용한다.
