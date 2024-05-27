@@ -74,6 +74,7 @@
 
   |번호|내용|
   |----|----|
+  |0|계수기 조작법|
   |1|["Hello, World!" 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/001_Hello_World.md)|
   |2|[LED Matrix에 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/002_LED_Matrix.md)|
   |3|[버튼 이용하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/003_Button.md)|
