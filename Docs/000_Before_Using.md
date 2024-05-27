@@ -12,7 +12,7 @@
 
 ### 1.2. LED Matrix 화면
 
-<image src="..\Res\portSetting\matrix4.png" width="30%">
+<image src="..\Res\portSetting\matrix4.jpg" width="30%">
 
 ### 1.3. IR Sensor
 
