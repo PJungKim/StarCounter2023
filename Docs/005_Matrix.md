@@ -126,7 +126,16 @@ main(){
 
 ### 3.1. 계수기 추가 예제
 
-[이곳](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/103_Array.md)에서 제시된 코드를 적용하여 LED Matrix를 여러 형태로 출력해 볼 수 있습니다.
+- [이곳](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/103_Array.md)에서 제시된 코드를 적용하여 LED Matrix를 여러 형태로 출력해 볼 수 있습니다.
 
+- 원모양
+  ```
+  img.data[0:2, y:0:7, x:0:7] = int(127/((x - 3.5) * (x - 3.5) + (y - 3.5) * (y - 3.5)));
+  ```
 
+- 체크무늬
+  ```
+  img.data[0, y:0:7, x:0:7] = 255 * ((x + y) % 2);
+  img.data[2, y:0:7, x:0:7] = 255 * ((x + y + 1) % 2);
+  ```
 
