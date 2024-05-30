@@ -93,5 +93,16 @@
   }
   ```
 
+- 실행 결과
+  - `PWM_Write(BUTTON_LED_RED, 64);`, `PWM_Write(BUTTON_LED_BLUE, 255);` : 아래 그림처럼 버튼 LED가 켜집니다.
+
+    <image src="..\Res\Examples\003_Button0.jpg" width="25%">
+
+  - 버튼을 누르면 숫자가 올라갔다 내려가며, 범위를 초과하면 프로그램은 꺼집니다.
+ 
+    <image src="..\Res\Examples\003_Button1.jpg" width="25%">
+    <image src="..\Res\Examples\003_Button2.jpg" width="25%">
+    <image src="..\Res\Examples\003_Button3.jpg" width="25%">
+
 
 [^주의]: $import는 현재 디렉터리 기준 상대 위치로, 위치가 맞지 않으면 파일 임포트 오류가 발생합니다.
