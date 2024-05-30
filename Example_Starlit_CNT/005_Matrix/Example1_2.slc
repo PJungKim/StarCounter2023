@@ -1,0 +1,24 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    ///LED Matrix 객체를 가져온다.
+    matrix = matrix_t(MATR_3);
+    
+    ///LED Matrix 초기화
+    matrix.Clear();
+    
+    while(!SWITCH_Read()){
+        x = Random() % 8;
+        y = Random() % 8;
+        r = Random() % 256;
+        g = Random() % 256;
+        b = Random() % 256;
+        matrix.AddrWindow(x, y, 1, 1);
+        matrix.SetDot((r << 16) | (g << 8) | b);
+        Delay(10);
+        matrix.Print();
+    }
+}

@@ -1,0 +1,19 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    matrix = matrix_t(MATR_3);
+    matrix.Clear();
+    
+    ///영역 설정. 이번에는 전영역으로 설정.
+    matrix.AddrWindow(0, 0, 8, 8);
+    
+    for(i)from(1)to(64){
+        matrix.SetDot(MAGENTA);
+        matrix.Print();
+        Delay(500);
+    }
+    
+}

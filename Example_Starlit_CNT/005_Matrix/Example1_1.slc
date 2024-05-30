@@ -1,0 +1,22 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    ///LED Matrix 객체를 가져온다.
+    matrix = matrix_t(MATR_3);
+    
+    ///LED Matrix 초기화
+    matrix.Clear();
+    
+    ///LED Matrix의 (3, 3) 위치만 지정한다.
+    matrix.AddrWindow(3, 3, 1, 1);
+    
+    ///LED Matrix의 색상을 저장.
+    matrix.SetDot(WHITE);
+    
+    ///LED Matrix 출력
+    matrix.Print();
+    
+}
