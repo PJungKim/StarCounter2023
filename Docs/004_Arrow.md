@@ -23,18 +23,23 @@
 
 - 스위치가 왼쪽으로 켜지면 1, 오른쪽으로 켜지면 0을 출력하는 코드
 
-```
-$import(..\..\counter_HW\studio.shc);
-$import(..\..\counter_HW\matrix.shc);
-$target(counter.sbc);
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+  
+  main(){
+      ///LED Matrix 객체를 가져온다.
+      matrix = matrix_t(MATR_3);
+      ///LED Matrix에 노란색으로 스위치가 켜진 방향을 출력한다.
+      matrix.Print("%d" % GetMode()) with (YELLOW);
+  }
+  ```
 
-main(){
-    ///LED Matrix 객체를 가져온다.
-    matrix = matrix_t(MATR_3);
-    ///LED Matrix에 노란색으로 스위치가 켜진 방향을 출력한다.
-    matrix.Print("%d" % GetMode()) with (YELLOW);
-}
-```
+- 실행 결과 : 버튼을 왼쪽으로 돌리면 `1`이, 오른쪽으로 돌리면 `0`이 출력됩니다.
+
+  <image src="..\Res\Examples\004_Arrow2.jpg" width="25%">
+  <image src="..\Res\Examples\004_Arrow3.jpg" width="25%">
 
 ## 2. 화살표 작동하기 - `(matrix_t).SetColor(색상)`, `(matrix_t).Arrow(방향)`
 
@@ -68,29 +73,36 @@ main(){
 
 ### 2.2 (예제) 스위치 켜진 방향에 따라 화살표 켜기
 
-```
-$import(..\..\counter_HW\studio.shc);
-$import(..\..\counter_HW\matrix.shc);
-$target(counter.sbc);
+- 소스 코드
 
-main(){
-    ///LED Matrix 객체를 가져온다.
-    matrix = matrix_t(MATR_4);
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+  
+  main(){
+      ///LED Matrix 객체를 가져온다.
+      matrix = matrix_t(MATR_4);
+  
+      ///스위치 켜진 방향 저장하기
+      mode = GetMode();
+  
+      ///LED Matrix 색상을 초록색으로 설정
+      matrix.SetColor(GREEN);
+  
+      if(mode){///왼쪽 방향으로 켜진 경우
+          matrix.Arrow(ARROW_LEFT);
+      }
+      else{
+          matrix.Arrow(ARROW_RIGHT);
+      }
+  
+      ///스위치 눌러 프로그램 종료
+      while(!SWITCH_Read()){}
+  }
+  ```
 
-    ///스위치 켜진 방향 저장하기
-    mode = GetMode();
+- 실행 결과
 
-    ///LED Matrix 색상을 초록색으로 설정
-    matrix.SetColor(GREEN);
-
-    if(mode){///왼쪽 방향으로 켜진 경우
-        matrix.Arrow(ARROW_LEFT);
-    }
-    else{
-        matrix.Arrow(ARROW_RIGHT);
-    }
-
-    ///스위치 눌러 프로그램 종료
-    while(!SWITCH_Read()){}
-}
-```
+  <image src="..\Res\Examples\004_Arrow0.jpg" width="25%">
+  <image src="..\Res\Examples\004_Arrow1.jpg" width="25%">
