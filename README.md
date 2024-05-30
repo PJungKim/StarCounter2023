@@ -19,6 +19,25 @@
  
 - 계수기에는 MicroSD카드가 들어있으며, MicroSD 내부에 CSV, TXT, SBC 등의 파일을 추가할 수 있습니다.
   - Starlit 언어로 작성된 코드는 계수기 내부 MicroSD에 저장되며, 계수기로 측정된 기록은 CSV로 저장하여 보관할 수 있습니다.(StarCSV 라이브러리 사용 가능)
+ 
+- 계수기 스펙
+
+  |항목|값|
+  |--|--|
+  |프로세서(메인보드)|STMicroelectronic, STM32F407VET6|
+  |FLASH|512KB|
+  |SRAM|192KB|
+  |Sensor|Maximum 8 Sensors(6 IR Sensors are connected)|
+  |SVM Program Memory|Maximum 64KB(Main SRAM Used)|
+  |SVM Stack|Maximum 48KB(CCMRAM Used)|
+  |프로세서(LED Matrix)|Microchip, ATmega128|
+  |Color|MATR_3, MATR_4 : RGB(8*8 1 Module)|
+  |Intensity|64, 픽셀 단위 색상별 개별 밝기제어 가능|
+  |Connectivity|SPI Interface(Maximum 4 Matrices can be connected)|
+  
+
+
+  
 
 ### 1.1. 2019년도 이후 계수기의 변화
 
