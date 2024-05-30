@@ -126,5 +126,7 @@ main(){
 
 ### 3.1. 계수기 추가 예제
 
-[이곳](https://github.com/PJungKim/StarCounter2023/main/Docs/103_Array.md)에서 제시된 코드를 적용하여 LED Matrix를 여러 형태로 출력해 볼 수 있습니다.
+[이곳](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/103_Array.md)에서 제시된 코드를 적용하여 LED Matrix를 여러 형태로 출력해 볼 수 있습니다.
+
+
 
