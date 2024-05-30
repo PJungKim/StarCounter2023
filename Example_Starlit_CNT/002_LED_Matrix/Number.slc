@@ -1,0 +1,18 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    ///LED Matrix 초기화
+    matrix = matrix_t(MATR_3);
+
+    ///i가 1부터 10까지 반복
+    for(i)from(1)to(10){
+        ///빨간색으로 숫자를 순차적으로 출력
+        matrix.Print("%02d" % i) with (RED);
+        ///1초 기다리기
+        Delay(1000);
+    }
+}
+

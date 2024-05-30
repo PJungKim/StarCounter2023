@@ -39,8 +39,7 @@ $target(counter.sbc);///루트에 올려야 합니다.
 ##STATE_ERR_LINEOUT(6);///EL
 ##STATE_ERR_END(7);///FF
 
-##BUTTON_LED_RED(1);
-##BUTTON_LED_BLUE(2);
+
 
 #recentTime(0):int;
 #maxTime(999999):int;

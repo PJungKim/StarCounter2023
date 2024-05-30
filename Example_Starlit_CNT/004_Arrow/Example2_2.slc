@@ -1,0 +1,25 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    ///LED Matrix 객체를 가져온다.
+    matrix = matrix_t(MATR_4);
+
+    ///스위치 켜진 방향 저장하기
+    mode = GetMode();
+
+    ///LED Matrix 색상을 초록색으로 설정
+    matrix.SetColor(GREEN);
+
+    if(mode){///왼쪽 방향으로 켜진 경우
+        matrix.Arrow(ARROW_LEFT);
+    }
+    else{
+        matrix.Arrow(ARROW_RIGHT);
+    }
+
+    ///스위치 눌러 프로그램 종료
+    while(!SWITCH_Read()){}
+}

@@ -1,0 +1,11 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    ///LED Matrix 객체를 가져온다.
+    matrix = matrix_t(MATR_3);
+    ///LED Matrix에 노란색으로 스위치가 켜진 방향을 출력한다.
+    matrix.Print("%d" % GetMode()) with (YELLOW);
+}

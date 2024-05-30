@@ -214,6 +214,9 @@ $const(SWITCH_1_LONG, 0x05, int);
 $const(SWITCH_2_LONG, 0x06, int);
 $const(SWITCH_BOTH_LONG, 0x07, int);
 
+##BUTTON_LED_RED(1);
+##BUTTON_LED_BLUE(2);
+
 
 
 ///UART 관련 추가제공 함수
