@@ -99,7 +99,7 @@
   |3|[버튼 이용하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/003_Button.md)|
   |4|[화살표 출력과 스위치 방향](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/004_Arrow.md)|
   |5|[LED Matrix에 원하는 위치에 원하는 점 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/005_Matrix.md)|
-  |6|[LED Matrix의 추가 기능](https://zetin.uos.ac.kr)|
+  |6|[LED Matrix의 추가 기능](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/006_Matrix.md)|
   |7|[센서 값 받아오기](https://zetin.uos.ac.kr)|
   |8|[인터럽트](https://zetin.uos.ac.kr)|
   |9|[SPI로 외부 장치 건드리기](https://zetin.uos.ac.kr)|
