@@ -39,6 +39,7 @@
 
 ### 1.2. (예제) 임의의 위치에 임의의 색 출력하기
 
+- 소스 코드
   ```
   $import(..\..\counter_HW\studio.shc);
   $import(..\..\counter_HW\matrix.shc);
@@ -64,6 +65,11 @@
       }
   }
   ```
+
+- 실행 결과
+
+  <image src="..\Res\Examples\005_Matrix0.jpg" width="25%">
+  
 
 ## 2. 픽셀 제어 순서
 
@@ -93,36 +99,45 @@
 
 - 실행 결과 왼쪽 아래 지점에서 실행해서 오른쪽으로 채우고, 위쪽으로 채워 나가는 것을 알 수 있습니다.
 
+  <image src="..\Res\Examples\005_Matrix2.jpg" width="25%">
+
 ## 3. (예제) LED Matrix에 반복 연산을 사용해 출력하기
 
-```
-$import(..\..\counter_HW\studio.shc);
-$import(..\..\counter_HW\matrix.shc);
-$target(counter.sbc);
-$import(stuimg);///이미지 객체를 빌립니다.
+- 소스 코드
 
-main(){
-    matrix = matrix_t(MATR_3);
-    matrix.Clear();
-    
-    #im():img_t;
-    im.data[0:2, 0:7, 0:7] = 0;
-    im.data[1, y:0:7, x:0:7] = x * 32;
-    im.data[2, y:0:7, x:0:7] = y * 32;
-    
-    ///영역 설정. 이번에는 전영역으로 설정.
-    matrix.AddrWindow(0, 0, 8, 8);
-    
-    for(y)from(0)to(7){
-        for(x)from(0)to(7){
-            matrix.SetDot((int(im.data[2, y, x]) << 16) | (int(im.data[1, y, x]) << 8) | im.data[0, y, x]);
-        }
-    }
-    
-    matrix.Print();
-    
-}
-```
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+  $import(stuimg);///이미지 객체를 빌립니다.
+  
+  main(){
+      matrix = matrix_t(MATR_3);
+      matrix.Clear();
+      
+      #im():img_t;
+      im.data[0:2, 0:7, 0:7] = 0;
+      im.data[1, y:0:7, x:0:7] = x * 32;
+      im.data[2, y:0:7, x:0:7] = y * 32;
+      
+      ///영역 설정. 이번에는 전영역으로 설정.
+      matrix.AddrWindow(0, 0, 8, 8);
+      
+      for(y)from(0)to(7){
+          for(x)from(0)to(7){
+              matrix.SetDot((int(im.data[2, y, x]) << 16) | (int(im.data[1, y, x]) << 8) | im.data[0, y, x]);
+          }
+      }
+      
+      matrix.Print();
+      
+  }
+  ```
+
+- 실행 결과
+
+  <image src="..\Res\Examples\005_Matrix3.jpg" width="25%">
+
 
 ### 3.1. 계수기 추가 예제
 
@@ -133,10 +148,15 @@ main(){
   im.data[0:2, y:0:7, x:0:7] = int(127/((x - 3.5) * (x - 3.5) + (y - 3.5) * (y - 3.5)));
   ```
 
+  <image src="..\Res\Examples\005_Matrix4.jpg" width="25%">
+
 - 체크무늬
   ```
   im.data[0, y:0:7, x:0:7] = 255 * ((x + y) % 2);
   im.data[2, y:0:7, x:0:7] = 255 * ((x + y + 1) % 2);
   ```
+
+  <image src="..\Res\Examples\005_Matrix5.jpg" width="25%">
+  
 
 [^밝기제어]: 계수기용 LED Matrix와 Starlit LED Matrix의 밝기제어 분해능 차이로 인해 출력 형태가 많이 차이가 날 수 있습니다.
