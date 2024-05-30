@@ -58,6 +58,15 @@
   }
   ```
 
+- 실행 결과
+
+  - 아래 그림과 같이 1부터 10까지 카운트하고 프로그램을 종료합니다.
+
+    <image src = "..\Res\Examples\002_Matrix0.jpg" width="25%">
+    <image src = "..\Res\Examples\002_Matrix1.jpg" width="25%">
+    <image src = "..\Res\Examples\002_Matrix2.jpg" width="25%">
+
+
 [^주의]: $import는 현재 디렉터리 기준 상대 위치로, 위치가 맞지 않으면 파일 임포트 오류가 발생합니다.
 [^미확인]: 검증이 되지 않은 코드로, 컴파일 오류가 발생할 여지가 있습니다.
 
