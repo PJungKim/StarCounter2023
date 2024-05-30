@@ -128,7 +128,7 @@ main(){
 
 - [이곳](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/103_Array.md)에서 제시된 코드를 적용하여 LED Matrix를 여러 형태로 출력해 볼 수 있습니다.
 
-- 원모양
+- 원모양[^밝기제어]
   ```
   im.data[0:2, y:0:7, x:0:7] = int(127/((x - 3.5) * (x - 3.5) + (y - 3.5) * (y - 3.5)));
   ```
@@ -139,3 +139,4 @@ main(){
   im.data[2, y:0:7, x:0:7] = 255 * ((x + y + 1) % 2);
   ```
 
+[^밝기제어]: 계수기용 LED Matrix와 Starlit LED Matrix의 밝기제어 분해능 차이로 인해 출력 형태가 많이 차이가 날 수 있습니다.
