@@ -21,10 +21,10 @@
 
 - LED
 
-  |LED|상수|
-  |----|----|
-  |빨강|`BUTTON_LED_RED`|
-  |파랑|`BUTTON_LED_BLUE`|
+  |LED|상수|값|
+  |----|----|----|
+  |빨강|`BUTTON_LED_RED`|1|
+  |파랑|`BUTTON_LED_BLUE`|2|
 
 - 빨간색 LED가 파란색 LED에 비해 밝기가 너무 밝기 때문에 이를 감안해서 밝기 제어를 하는 것을 권장합니다.
   - 파란색 LED를 255로 할 때, 빨간색 밝기는 64 정도로 쓰면 밸런스가 맞습니다.
@@ -50,22 +50,25 @@
 - 빨간 버튼을 눌러 숫자가 1이 커지게 하고, 파란 버튼을 눌러 숫자가 1이 작아지게 하기
 - 0보다 작아지면 프로그램 종료
 - 9보다 커져도 프로그램 종료
-- 소스 코드[^주의][^미확인]
+- 소스 코드[^주의]
 
   ```
   $import(..\..\counter_HW\studio.shc);
   $import(..\..\counter_HW\matrix.shc);
   $target(counter.sbc);
-
+  
+  
+  
   main(){
       /// LED Matrix 초기화
       matrix = matrix_t(MATR_3);
   
       /// 버튼 불 켜기
       /// 누가 설계했는지는 모르지만 빨간색 LED 밝기가 너무 밝네요 ㅠㅠ
-      PWM_Write(BUTTON_LED_RED, 64)
-      PWM_Write(BUTTON_LED_BLUE, 255)
-
+      PWM_Begin();
+      PWM_Write(BUTTON_LED_RED, 64);
+      PWM_Write(BUTTON_LED_BLUE, 255);
+  
       /// 값 초기화
       value = 0;
       /// 버튼을 눌렀을 때 숫자 올리거나 내리기
@@ -76,19 +79,19 @@
               if(9 < value){
                   break;
               }
-              matrix.Print("%02d" % value) with (PURPLE);
+              matrix.Print("%02d" % value) with (VIOLET);
           }
-          elif(SWITCH2 == sw){
+          elif(SWITCH_2 == sw){
               value -= 1;
               if(0 > value){
                   break;
               }
-              matrix.Print("%02d" % value) with (PURPLE);
+              matrix.Print("%02d" % value) with (VIOLET);
           }
       }
+      PWM_End();
   }
   ```
 
 
 [^주의]: $import는 현재 디렉터리 기준 상대 위치로, 위치가 맞지 않으면 파일 임포트 오류가 발생합니다.
-[^미확인]: 검증이 되지 않은 코드로, 컴파일 오류가 발생할 여지가 있습니다.
