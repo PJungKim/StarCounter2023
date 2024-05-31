@@ -31,16 +31,26 @@
 
   |함수명|매개변수|설명|출력|
   |--|--|--|--|
-  |`sensor[n].GetValue()`|`n` 센서 번호(0~7)|센서의 ADC 값을 받아옵니다.|센서의 ADC 값(0~4095)|
+  |`sensor[n].GetRawValue()`|`n` 센서 번호(0~7)|센서의 ADC 값을 받아옵니다.|센서의 ADC 값(0~4095)|
   |`sensor[n].GetBlackMin()`|`n` 센서 번호(0~7)|칼리브레이션의 BlackMin 레지스터 값을 받습니다.|BlackMin값(0~4095)|
   |`sensor[n].GetWhiteMin()`|`n` 센서 번호(0~7)|칼리브레이션의 WhiteMin 레지스터 값을 받습니다.|WhiteMin값(0~4095)|
   |`sensor[n].GetValue()`|`n` 센서 번호(0~7)|노멀라이즈된 센서 값을 받습니다.|유효 센서값(0~255)|
 
 - 값을 쓰는 함수
+  
   |함수명|매개변수|설명|출력|
   |--|--|--|--|
   |`sensor[n].SetBlackMin(value)`|`n` 센서 번호(0~7)<br>`value` BlackMin값|BlackMin값을 레지스터에 저장합니다.|void|
   |`sensor[n].SetWhiteMin(value)`|`n` 센서 번호(0~7)<br>`value` WhiteMin값|WhiteMin값을 레지스터에 저장합니다.|void|
+
+- 센서 초기화 및 상태 함수
+
+  |함수명|매개변수|설명|출력|
+  |--|--|--|--|
+  |`SENSOR_Init()`|void|센서 8개를 모두 초기화합니다.|void|
+  |`SENSOR_Threshold(high, low)`|`high` L->H로 State가 변할 때의 스레시홀드<br>`low` H->L로 변할 때의 스레시홀드|State값의 기준치를 저장합니다.|void|
+  |`SENSOR_GetState()`|void|센서의 상태 값을 비트 단위로 받아옵니다(물체 감지 시 1, 미감지 시 0).|상태 값(LSB부터 0번~MSB가 7번 센서)|
+  
 
 ## 3. (예제) 센서 읽기
 
@@ -49,8 +59,40 @@
 - 센서 값은 0~4095로 출력되므로 450으로 나눈 값을 출력합시다.
   - 예: 2번 센서 값이 5일때: 25 출력
 
+- 소스 코드
+
   ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $import(..\..\counter_HW\sensor.shc);///센서 라이브러리 추가해야 함.
+  $target(counter.sbc);
+  
   main(){
+      matrix = matrix_t(MATR_3);
+      
+      ///센서를 초기화합니다.
+      SENSOR_Init();
+      
+      ///값을 받아올 센서 값
+      sensorid = 0;
+      
+      while(1){
+          ///스위치 누를 때마다 센서 다르게 선택.
+          sw = SWITCH_Read();
+          if(sw == SWITCH_1){
+              sensorid += 1;
+              sensorid %%= 8;
+          }
+          elif(sw == SWITCH_2){
+              sensorid -= 1;
+              sensorid %%= 8;
+          }
+          elif(sw == SWITCH_BOTH){
+              break;
+          }
+          data = sensor[sensorid].GetRawValue() / 450;
+          matrix.Print("%d" % sensorid + "%d" % data) with (RED);
+      }
   }
   ```
 
