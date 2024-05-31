@@ -69,12 +69,14 @@
           if(sw == SWITCH_1){
               if(fps < 30){
                   fps += 1;
+                  matrix.SetFPS(fps);
                   matrix.Print("/wHello, World!");
               }
           }
           elif(sw == SWITCH_2){
               if(fps > 10){
                   fps -= 1;
+                  matrix.SetFPS(fps);
                   matrix.Print("/wHello, World!");
               }
           }
@@ -85,6 +87,10 @@
       }
   }
   ```
+
+- 실행 결과
+  - `BUTTON_1`을 눌렀을 때 LED Matrix 속도가 빨라집니다.
+  - `BUTTON_2`를 눌렀을 때 LED Matrix 속도가 느려집니다.
 
 # 4. 화살표 색상 바꾸기
 
@@ -111,13 +117,13 @@
           ///스위치를 입력받습니다.
           sw = SWITCH_Read();
           if(sw == SWITCH_1){
-              cols += 1;
-              cols %%= 7;
+              col += 1;
+              col %%= 7;
               matrix.SetColor(cols[col]);
           }
           elif(sw == SWITCH_2){
-              cols -= 1;
-              cols %%= 7;
+              col -= 1;
+              col %%= 7;
               matrix.SetColor(cols[col]);
           }
           elif(sw == SWITCH_BOTH){
