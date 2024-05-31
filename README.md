@@ -101,8 +101,8 @@
   |5|[LED Matrix에 원하는 위치에 원하는 점 출력하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/005_Matrix.md)|
   |6|[LED Matrix의 추가 기능](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/006_Matrix.md)|
   |7|[센서 값 받아오기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/007_Sensor.md)|
-  |8|[인터럽트](https://zetin.uos.ac.kr)|
-  |9|[SPI로 외부 장치 건드리기](https://zetin.uos.ac.kr)|
+  |8|~~인터럽트~~[^인터럽트]|
+  |9|SPI로 외부 장치 건드리기[^SPI]|
   |10|[UART로 PC와 통신하기](https://zetin.uos.ac.kr)|
 
 ### 3.1. Starlit 구문의 이해
@@ -128,6 +128,8 @@
   |2|[State, Threshold](https://zetin.uos.ac.kr)|
   |3|[통신 규격 정하기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/703_Communication.md)|
   |4|[계수기 State Machine](https://zetin.uos.ac.kr)|
-  
+
+[^인터럽트]: STM32의 내부적인 인터럽트와는 조금 다릅니다. 아직 기술적 안정성이 좋지 않아 문서는 작성하지 않았습니다.
+[^SPI]: 외부 장치를 SPI 인터페이스에서 추가로 달 생각이 있다면 연락 바랍니다.
 
 
