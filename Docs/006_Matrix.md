@@ -46,6 +46,10 @@
   }
   ```
 
+- 실행 결과
+
+  <image src="..\Res\Examples1\006_Matrix0.jpg" width="25%">
+
 # 3. 글자 천천히 출력하기
 
 - 아래 예제는 글자를 출력하는 속도를 조절하는 예제입니다. 버튼을 눌러 속도를 조절할 수 있으며, 속도는 10~30으로 설정 가능합니다.
@@ -134,7 +138,13 @@
   }
   ```
   
-  - ~~C언어에는 없는 %%= 연산자가 눈에 띈다.~~
+  ~~C언어에는 없는 %%= 연산자가 눈에 띈다.~~
+
+- 실행 결과 : 버튼을 누르면 색이 부드럽게 바뀌는 것을 알 수 있습니다.
+
+  <image src="..\Res\Examples1\006_Matrix1.jpg" width="25%">
+  <image src="..\Res\Examples1\006_Matrix2.jpg" width="25%">
+  <image src="..\Res\Examples1\006_Matrix3.jpg" width="25%">
 
 # 5. Starlit Fog
 
