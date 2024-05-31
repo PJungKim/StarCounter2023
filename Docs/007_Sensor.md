@@ -101,4 +101,15 @@
   }
   ```
 
+- 실행 결과
+
+  - 센서를 작동시키면 아래 그림처럼 IR센서부분이 켜진 것을 확인할 수 있습니다.
+ 
+    <image src="..\Res\Examples1\007_Sensor0.jpg" width="25%">
+    <image src="..\Res\Examples1\007_Sensor1.jpg" width="25%">
+
+  - 버튼을 누르면 앞자리 숫자가 바뀌고, 그 숫자의 센서 값이 뒷자리 값으로 출력됩니다.
+ 
+    <image src="..\Res\Examples1\007_Sensor2.jpg" width="25%">
+
 [^3번과7번]: 사용하지 않는 센서
