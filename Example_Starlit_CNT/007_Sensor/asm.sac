@@ -7,6 +7,9 @@ __copyconst1,8192(4);
 __jfuncx,matrix_t$int(MEM);
 __mset,12;
 __jfuncx1,SENSOR_Init(MEM);
+[4]119017522;
+__copyconst1,1(4);
+[4]119025682;
 __copyconst,0(4);
 $CONT$0000:
 __copyconst1,1(4);

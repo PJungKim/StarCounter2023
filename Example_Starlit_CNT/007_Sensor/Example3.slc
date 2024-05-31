@@ -9,6 +9,8 @@ main(){
     
     ///센서를 초기화합니다.
     SENSOR_Init();
+    SENSOR_Begin();
+    SENSOR_IR(1);
     
     ///값을 받아올 센서 값
     sensorid = 0;
