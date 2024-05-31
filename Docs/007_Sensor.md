@@ -48,6 +48,9 @@
   |함수명|매개변수|설명|출력|
   |--|--|--|--|
   |`SENSOR_Init()`|void|센서 8개를 모두 초기화합니다.|void|
+  |`SENSOR_Begin()`|void|센서 ADC를 활성화합니다.|void|
+  |`SENSOR_End()`|void|센서 ADC를 비활성화합니다.|void|
+  |`SENSOR_IR(state)`|`state` IR LED 상태|IR LED를 켜거나 끕니다.|void|
   |`SENSOR_Threshold(high, low)`|`high` L->H로 State가 변할 때의 스레시홀드<br>`low` H->L로 변할 때의 스레시홀드|State값의 기준치를 저장합니다.|void|
   |`SENSOR_GetState()`|void|센서의 상태 값을 비트 단위로 받아옵니다(물체 감지 시 1, 미감지 시 0).|상태 값(LSB부터 0번~MSB가 7번 센서)|
   
@@ -72,6 +75,8 @@
       
       ///센서를 초기화합니다.
       SENSOR_Init();
+      SENSOR_Begin();
+      SENSOR_IR(1);
       
       ///값을 받아올 센서 값
       sensorid = 0;
