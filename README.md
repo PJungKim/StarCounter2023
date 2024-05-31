@@ -102,7 +102,7 @@
   |6|[LED Matrix의 추가 기능](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/006_Matrix.md)|
   |7|[센서 값 받아오기](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/007_Sensor.md)|
   |8|~~인터럽트~~[^인터럽트]|
-  |9|SPI로 외부 장치 건드리기[^SPI]|
+  |9|~~SPI로 외부 장치 건드리기~~[^SPI]|
   |10|[UART로 PC와 통신하기](https://zetin.uos.ac.kr)|
 
 ### 3.1. Starlit 구문의 이해
