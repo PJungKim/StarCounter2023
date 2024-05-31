@@ -1,0 +1,21 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+$import(stuimg);///이미지 객체를 빌립니다.
+
+main(){
+    matrix = matrix_t(MATR_3);
+    matrix.Clear();
+    
+    
+    ///영역 설정. 이번에는 전영역으로 설정.
+    matrix.AddrWindow(0, 0, 8, 8);
+    
+    ///전 영역을 빨간색으로 채웁니다.
+    matrix.FillColor(RED);
+    
+    ///LED Matrix에 출력합니다.
+    matrix.Print();
+    
+}

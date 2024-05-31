@@ -1,0 +1,36 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+$import(stuimg);///이미지 객체를 빌립니다.
+
+main(){
+    matrix = matrix_t(MATR_3);
+    
+    ///기본 fps값은 15입니다.
+    fps = 15;
+    matrix.Print("/wHello, World!");
+    
+    while(1){
+        ///스위치를 입력받습니다.
+        sw = SWITCH_Read();
+        if(sw == SWITCH_1){
+            if(fps < 30){
+                fps += 1;
+                matrix.SetFPS(fps);
+                matrix.Print("/wHello, World!");
+            }
+        }
+        elif(sw == SWITCH_2){
+            if(fps > 10){
+                fps -= 1;
+                matrix.SetFPS(fps);
+                matrix.Print("/wHello, World!");
+            }
+        }
+        elif(sw == SWITCH_BOTH){
+            ///프로그램 종료
+            break;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$import(..\..\counter_HW\sensor.shc);///센서 라이브러리 추가해야 함.
+$target(counter.sbc);
+
+main(){
+    matrix = matrix_t(MATR_3);
+    
+    ///센서를 초기화합니다.
+    SENSOR_Init();
+    
+    ///값을 받아올 센서 값
+    sensorid = 0;
+    
+    while(1){
+        ///스위치 누를 때마다 센서 다르게 선택.
+        sw = SWITCH_Read();
+        if(sw == SWITCH_1){
+            sensorid += 1;
+            sensorid %%= 8;
+        }
+        elif(sw == SWITCH_2){
+            sensorid -= 1;
+            sensorid %%= 8;
+        }
+        elif(sw == SWITCH_BOTH){
+            break;
+        }
+        data = sensor[sensorid].GetRawValue() / 450;
+        matrix.Print("%d" % sensorid + "%d" % data) with (RED);
+    }
+}
