@@ -118,6 +118,19 @@
   |5|[Call-By-Reference, Return-By-Reference와 Reference 변수](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/105_Reference.md)|
   |6|[객체와 클래스](https://github.com/PJungKim/StarCounter2023/blob/main/Docs/106_Class.md)|
 
+- 아래 내용은 Starlit 주요 함수에 대한 내용입니다.
+
+  |번호|내용|
+  |--|--|
+  |1|숫자를 문자열로 변환하기|
+  |2|문자열을 숫자로 변환하기|
+  |3|문자열 관련 함수|
+  |4|비트 마스킹과 계수기에서 적용|
+  |5|파일 입출력과 텍스트 파일|
+  |6|8*8 비트맵 이미지 파일|
+  |7|CSV 파일 관리하기|
+
+
 ## 4. 계수기 코딩하기
 
 - 아래 내용은 Starlit 3.2 코드로 작성되었습니다.
