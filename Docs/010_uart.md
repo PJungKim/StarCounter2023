@@ -15,7 +15,7 @@
 |`FTDI_Write(byte)`|`byte` 1바이트 문자|FTDI에 8비트 데이터를 전송합니다.|void|
 |`FTDI_Available()`|void|FTDI에 들어온 데이터 비트 수를 가져옵니다.|계수기에 들어온 비트 수(0~255)|
 |`FTDI_Read()`|void|FTDI에 들어온 데이터를 1바이트씩 읽습니다.|읽어 온 데이터 값(0~255)|
-|`FTDI_Scan(n, st)`|`n` 읽어올 데이터 최대 바이트 수<br>`st` 읽어올 문자열(ref형)|FTDI에 전송된 문자열을 읽습니다.|실제로 읽은 바이트 수(0~255)|
+|`FTDI_Scan(timeout, txt)`|`timeout` FTDI 수신 타임아웃(ms단위)<br>`st` 읽어올 문자열(ref형)|FTDI에 전송된 문자열을 읽습니다.|실제로 읽은 바이트 수(0~255)|
 
 ## 2. UART를 이용해 PC로 송신하기
 
@@ -68,4 +68,62 @@
 ## 3. UART 수신 받기
 
 - PC에서 전송한 숫자를 LED Matrix에 출력하기
+
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+  
+  main(){
+      matrix = matrix_t(MATR_3);
+      
+      ///UART 초기화
+      FTDI_Begin(9600);
+      
+      while(!SWITCH_Read()){
+          #txt():str;
+          ///FTDI가 수신되었을 때
+          if(FTDI_Available()){
+              FTDI_Scan(10, _txt);///문자열을 스캔
+          }
+          matrix.Print(_txt)with(RED);///빨간색으로 입력된 문자열 출력.
+      }
+      
+  }
+  ```
+
+## 4. 합 표시하는 장치
+
+- PC에서 숫자를 입력받은 뒤 LED Matrix에 그 값을 누적해서 출력합니다.
+  - 예를 들어 1, 4, 6 순으로 입력하면 1->5->11 순으로 출력됩니다.
+  - 출력 색상은 청록색으로 하겠습니다.
+ 
+- 소스 코드
+
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+  
+  main(){
+      matrix = matrix_t(MATR_3);
+      
+      ///UART 초기화
+      FTDI_Begin(9600);
+      
+      ///숫자 입력 값
+      sum = 0;
+      
+      while(!SWITCH_Read()){
+          #txt():str;
+          ///FTDI가 수신되었을 때
+          if(FTDI_Available()){
+              FTDI_Scan(10, _txt);///문자열을 스캔
+              sum += Atoi(_txt);///숫자로 변환 후 누적.
+          }
+          matrix.Print("%2d" % sum)with(CYAN);///청록색으로 입력된 문자열 출력.
+      }
+      
+  }
+  ```
 
