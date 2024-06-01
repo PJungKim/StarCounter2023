@@ -17,3 +17,55 @@
 |`FTDI_Read()`|void|FTDI에 들어온 데이터를 1바이트씩 읽습니다.|읽어 온 데이터 값(0~255)|
 |`FTDI_Scan(n, st)`|`n` 읽어올 데이터 최대 바이트 수<br>`st` 읽어올 문자열(ref형)|FTDI에 전송된 문자열을 읽습니다.|실제로 읽은 바이트 수(0~255)|
 
+## 2. UART를 이용해 PC로 송신하기
+
+- 버튼을 누르면 PC로 버튼 번호를 전송하겠습니다.
+
+  |누른 버튼|전송 데이터|
+  |--|--|
+  |`BUTTON_1` 빨간 버튼|`1`|
+  |`BUTTON_2` 파란 버튼|`2`|
+
+- 소스 코드
+
+  ```
+  $import(..\..\counter_HW\studio.shc);
+  $import(..\..\counter_HW\matrix.shc);
+  $target(counter.sbc);
+  
+  main(){
+      matrix = matrix_t(MATR_3);
+      
+      ///UART 초기화
+      FTDI_Begin(9600);
+      
+      ///버튼 불 켜기
+      PWM_Begin();
+      PWM_Write(BUTTON_LED_RED, 64);
+      PWM_Write(BUTTON_LED_BLUE, 255);
+      
+      ///9600Baud로 UART 초기화
+      FTDI_Begin(9600);
+      
+      while(1){
+          sw = SWITCH_Read();
+          if(sw == SWITCH_1){
+              FTDI_cout << "1\n";///줄바꿈 포함해서 출력.
+          }
+          elif(sw == SWITCH_2){
+              FTDI_cout << "2\n";///줄바꿈 포함해서 출력.
+          }
+          elif(sw == SWITCH_BOTH){
+              break;
+          }
+      }
+      
+  }
+  ```
+
+- 실행 결과
+
+## 3. UART 수신 받기
+
+- PC에서 전송한 숫자를 LED Matrix에 출력하기
+
