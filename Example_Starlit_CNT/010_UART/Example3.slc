@@ -1,0 +1,21 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    matrix = matrix_t(MATR_3);
+    
+    ///UART 초기화
+    FTDI_Begin(9600);
+    
+    while(!SWITCH_Read()){
+        #txt():str;
+        ///FTDI가 수신되었을 때
+        if(FTDI_Available()){
+            FTDI_Scan(10, _txt);///문자열을 스캔
+        }
+        matrix.Print(_txt)with(RED);///빨간색으로 입력된 문자열 출력.
+    }
+    
+}

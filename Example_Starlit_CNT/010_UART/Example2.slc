@@ -1,0 +1,33 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    matrix = matrix_t(MATR_3);
+    
+    ///UART 초기화
+    FTDI_Begin(9600);
+    
+    ///버튼 불 켜기
+    PWM_Begin();
+    PWM_Write(BUTTON_LED_RED, 64);
+    PWM_Write(BUTTON_LED_BLUE, 255);
+    
+    ///9600Baud로 UART 초기화
+    FTDI_Begin(9600);
+    
+    while(1){
+        sw = SWITCH_Read();
+        if(sw == SWITCH_1){
+            FTDI_cout << "1\n";///줄바꿈 포함해서 출력.
+        }
+        elif(sw == SWITCH_2){
+            FTDI_cout << "2\n";///줄바꿈 포함해서 출력.
+        }
+        elif(sw == SWITCH_BOTH){
+            break;
+        }
+    }
+    
+}
