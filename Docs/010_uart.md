@@ -63,34 +63,43 @@
   }
   ```
 
-- 실행 결과
+- 실행 결과 : 아래 그림과 같이 버튼을 누르면 시리얼 창에 1, 2가 출력됩니다.
+
+  <image src="..\Res\Examples1\010_Serial0.png" width="70%">
 
 ## 3. UART 수신 받기
 
 - PC에서 전송한 숫자를 LED Matrix에 출력하기
 
-  ```
-  $import(..\..\counter_HW\studio.shc);
-  $import(..\..\counter_HW\matrix.shc);
-  $target(counter.sbc);
+```
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$target(counter.sbc);
+
+main(){
+    matrix = matrix_t(MATR_3);
+    
+    ///UART 초기화
+    FTDI_Begin(9600);
+    
+    while(!SWITCH_Read()){
+        #txt(0):str;
+        ///FTDI가 수신되었을 때
+        if(FTDI_Available()){
+            FTDI_Scan(10, _txt);///문자열을 스캔
+            matrix.Print(_txt)with(RED);///빨간색으로 입력된 문자열 출력.
+        }
+        
+    }
+    
+}
+```
+
+- 실행 결과 : 시리얼 창에 최대 2자리를 입력하면 LED Matrix에 그 입력한 값이 출력됩니다.
+
+  <image src="..\Res\Examples1\010_Serial1.png" width="50%">
+  <image src="..\Res\Examples1\010_Serial2.jpg" width="24%">
   
-  main(){
-      matrix = matrix_t(MATR_3);
-      
-      ///UART 초기화
-      FTDI_Begin(9600);
-      
-      while(!SWITCH_Read()){
-          #txt():str;
-          ///FTDI가 수신되었을 때
-          if(FTDI_Available()){
-              FTDI_Scan(10, _txt);///문자열을 스캔
-          }
-          matrix.Print(_txt)with(RED);///빨간색으로 입력된 문자열 출력.
-      }
-      
-  }
-  ```
 
 ## 4. 합 표시하는 장치
 
@@ -126,4 +135,19 @@
       
   }
   ```
+
+- 실행 결과
+  - 처음에는 LED Matrix에 0이 출력됩니다.
+
+    <image src="..\Res\Examples1\010_Serial3.jpg" width="24%">
+
+  - 시리얼 창에 `3`을 입력하면 LED Matrix에 3이 출력되는 것을 알 수 있습니다.
+    
+    <image src="..\Res\Examples1\010_Serial4.png" width="50%">
+    <image src="..\Res\Examples1\010_Serial7.jpg" width="24%">
+
+  - 그 다음에 `-2`를 입력하면 3에서 2를 뺀 값인 1이 출력됩니다.
+  
+    <image src="..\Res\Examples1\010_Serial6.png" width="50%">
+    <image src="..\Res\Examples1\010_Serial5.jpg" width="24%">
 
