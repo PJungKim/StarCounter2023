@@ -10,7 +10,7 @@ $const(ARROW_DOWN, 3, int);
 $const(RED, 0xFF0000, int);
 $const(ORANGE, 0xFF3300, int);
 $const(YELLOW, 0xFFAA00, int);
-$const(GREENYELLOW, 0xAAFF00, int);
+$const(LIME, 0xAAFF00, int);
 $const(GREEN, 0x00FF00, int);
 $const(MINT, 0x00FF55, int);
 $const(CYAN, 0x00FFFF, int);

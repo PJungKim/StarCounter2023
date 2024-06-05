@@ -81,7 +81,7 @@ __copyptr1,0(MGL);
 __jfuncx,Clear$matrix_t(MEM);
 __copyconst1,0(0);
 __copyconsthigh,4080(4);
-__copyconst,17408(0);
+__copyconst,13056(0);
 __copyconsthigh,4080(4);
 __copyconst,43520(0);
 __copyconsthigh,4080(4);
@@ -208,7 +208,7 @@ __copyptr,492(MGL);
 __nbranch,$ELSE$0007(MEM);
 $AGAI$0007:
 __copyptr1,0(MGL);
-__copyconst,65280(0);
+__copyconst,43520(0);
 __copyconsthigh,4080(4);
 __jfuncx,SetColor$matrix_t$int(MEM);
 $BREA$0007:
@@ -223,7 +223,7 @@ __copyptr,500(MGL);
 __nbranch,$ELSE$0008(MEM);
 $AGAI$0008:
 __copyptr1,0(MGL);
-__copyconst,17408(0);
+__copyconst,13056(0);
 __copyconsthigh,4080(4);
 __jfuncx,SetColor$matrix_t$int(MEM);
 $BREA$0008:
@@ -326,7 +326,7 @@ __copyptr,556(MGL);
 __nbranch,$ELSE$0015(MEM);
 $AGAI$0015:
 __copyptr1,0(MGL);
-__copyconst,65348(4);
+__copyconst,65365(4);
 __jfuncx,SetColor$matrix_t$int(MEM);
 $BREA$0015:
 __jump,$BREA$0016(MEM);
@@ -341,7 +341,7 @@ __nbranch,$ELSE$0016(MEM);
 $AGAI$0016:
 __copyptr1,0(MGL);
 __copyconst,65280(0);
-__copyconsthigh,2448(4);
+__copyconsthigh,2720(4);
 __jfuncx,SetColor$matrix_t$int(MEM);
 $BREA$0016:
 __jump,$BREA$0017(MEM);
@@ -903,7 +903,7 @@ __copyptr,92(FL);
 [4]234881041;
 __copyptr1,0(MGL);
 __copyptr,836(MGL);
-__copyconst,65280(0);
+__copyconst,43520(0);
 __copyconsthigh,4080(4);
 __jfuncx,Print3$matrix_t$ref$int(MEM);
 __copyptr1,12(MGL);
@@ -1285,7 +1285,7 @@ __copyptr,92(FL);
 [4]234881041;
 __copyptr1,0(MGL);
 __copyptr,928(MGL);
-__copyconst,65280(0);
+__copyconst,43520(0);
 __copyconsthigh,4080(4);
 __jfuncx,Print3$matrix_t$ref$int(MEM);
 __copyptr1,12(MGL);
@@ -1571,7 +1571,7 @@ __copyptr,92(FL);
 [4]234881041;
 __copyptr1,0(MGL);
 __copyptr,1112(MGL);
-__copyconst,65280(0);
+__copyconst,43520(0);
 __copyconsthigh,4080(4);
 __jfuncx,Print3$matrix_t$ref$int(MEM);
 __copyptr1,12(MGL);
@@ -2231,7 +2231,7 @@ __copyptr1,0(MGL);
 __copyptr1,1224(MGL);
 [4]23089330;
 [4]196753;
-__copyconst,17408(0);
+__copyconst,13056(0);
 __copyconsthigh,4080(4);
 __jfuncx,Print3$matrix_t$str$int(MEM);
 $BREA$0070:
@@ -2344,12 +2344,12 @@ __copyconsthigh,4080(4);
 __copyconstjfunc,SensorRaw(MEM);
 __nop,12(1);
 __copyptr1,1484(MGL);
-__copyconst,65280(0);
+__copyconst,43520(0);
 __copyconsthigh,4080(4);
 __copyconstjfunc,SensorNormal(MEM);
 __nop,12(1);
 __copyptr1,1488(MGL);
-__copyconst,17408(0);
+__copyconst,13056(0);
 __copyconsthigh,4080(4);
 __copyconstjfunc,SensorState(MEM);
 __nop,12(1);
@@ -2358,7 +2358,7 @@ __copyconst,255(4);
 __copyconstjfunc,ResetRecord(MEM);
 __nop,12(1);
 __copyptr1,1496(MGL);
-__copyconst,65348(4);
+__copyconst,65365(4);
 __copyconstjfunc,CleanMap(MEM);
 __nop,12(1);
 __copyptr1,1500(MGL);
@@ -3383,27 +3383,24 @@ __copyptr,1508(MGL);
 __jfuncx,Print$matrix_t$ref(MEM);
 __endfunc1,0;
 Play$menu_t:
-__mset,4;
-__copyconst1,4(4);
-__copyptr,0(FL);
-__farg, 1;
+$CONT$0101:
+__farg, 4;
 __ref1,0(REF3);
 __copy,4(1);
 __copyconst,8(4);
 [4]16973968;
 [4]251674769;
-[4]234881041;
-$CONT$0101:
-__farg, 2;
-__ref1,0(FL);
-__copy,4(1);
 [4]602256;
 __copyconst,0(4);
 [4]17510544;
 __nbranch,$ELSE$0101(MEM);
 $AGAI$0101:
-__ref11,0(FL);
+__farg, 2;
+__ref1,0(REF3);
 __copy,4(1);
+__copyconst,8(4);
+[4]16973968;
+[4]251674769;
 [4]126;
 $BREA$0101:
 $ELSE$0101:

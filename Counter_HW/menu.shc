@@ -8,10 +8,8 @@ $class(menu_t){
 	#func:ref;
 	
 	Play(){
-		#f():ref;
-		f = self.func;
-		if(val(f) != 0){
-			f();
+		if(val(self.func) != 0){
+			self.func();
 		}
 	}
 	
@@ -39,16 +37,16 @@ menu(){
 	#sw():int;
 	#mList(
 		menu_t(
-		menu_t("<-", WHITE1,  NULL),
-		menu_t("CA", WHITE1,  Calibration),///캘리브레이션 다시 함.
-		menu_t("RA", RED1,    SensorRaw),///센서 순수 값
-		menu_t("NO", YELLOW1, SensorNormal),///노멀라이즈된 값.
-		menu_t("ST", ORANGE1, SensorState),///스테이트
-		menu_t("RS", BLUE1,   ResetRecord),///기록삭제
-		menu_t("CL", MINT1,   CleanMap),///기록삭제
+		menu_t("<-", WHITE,  NULL),
+		menu_t("CA", WHITE,  Calibration),///캘리브레이션 다시 함.
+		menu_t("RA", RED,    SensorRaw),///센서 순수 값
+		menu_t("NO", YELLOW, SensorNormal),///노멀라이즈된 값.
+		menu_t("ST", ORANGE, SensorState),///스테이트
+		menu_t("RS", BLUE,   ResetRecord),///기록삭제
+		menu_t("CL", MINT,   CleanMap),///기록삭제
 		///menu_t("TI", CYAN1,   TimeAttackMode),///타임어택
-		menu_t(">>", VIOLET1, NULL),///오른쪽 방향 주행
-		menu_t("<<", VIOLET1, NULL)///왼쪽 방향 주행
+		menu_t(">>", VIOLET, NULL),///오른쪽 방향 주행
+		menu_t("<<", VIOLET, NULL)///왼쪽 방향 주행
 		)
 	):menu_t[MENU_N];
 	#idx(0):int;

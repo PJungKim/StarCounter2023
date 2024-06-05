@@ -126,40 +126,40 @@ main(){
 				matrix1.Print(_re + 1);
 			}
 			elif(!StrCmp(_re, "red")){
-				matrix1.SetColor(RED1);
+				matrix1.SetColor(RED);
 			}
 			elif(!StrCmp(_re, "yellow")){
-				matrix1.SetColor(YELLOW1);
+				matrix1.SetColor(YELLOW);
 			}
 			elif(!StrCmp(_re, "orange")){
-				matrix1.SetColor(ORANGE1);
+				matrix1.SetColor(ORANGE);
 			}
 			elif(!StrCmp(_re, "white")){
-				matrix1.SetColor(WHITE1);
+				matrix1.SetColor(WHITE);
 			}
 			elif(!StrCmp(_re, "blue")){
-				matrix1.SetColor(BLUE1);
+				matrix1.SetColor(BLUE);
 			}
 			elif(!StrCmp(_re, "violet")){
-				matrix1.SetColor(VIOLET1);
+				matrix1.SetColor(VIOLET);
 			}
 			elif(!StrCmp(_re, "magenta")){
-				matrix1.SetColor(MAGENTA1);
+				matrix1.SetColor(MAGENTA);
 			}
 			elif(!StrCmp(_re, "rose")){
-				matrix1.SetColor(ROSE1);
+				matrix1.SetColor(ROSE);
 			}
 			elif(!StrCmp(_re, "green")){
-				matrix1.SetColor(GREEN1);
+				matrix1.SetColor(GREEN);
 			}
 			elif(!StrCmp(_re, "mint")){
-				matrix1.SetColor(MINT1);
+				matrix1.SetColor(MINT);
 			}
 			elif(!StrCmp(_re, "lime")){
-				matrix1.SetColor(LIME1);
+				matrix1.SetColor(LIME);
 			}
 			elif(!StrCmp(_re, "cyan")){
-				matrix1.SetColor(CYAN1);
+				matrix1.SetColor(CYAN);
 			}
 			elif(!StrCmp(_re, "arrow")){
 				matrix1.Arrow(arrowDirection);
@@ -213,8 +213,8 @@ main(){
 				state = STATE_DRIVE;
 				driveSecond = 1000;
 				driveTime = Tick();
-				matrix1.Print ("00") with (if(endState, RED1, MAGENTA1));
-				matrix2.Print ("00") with (if(endState, RED1, MAGENTA1));
+				matrix1.Print ("00") with (if(endState, RED, MAGENTA));
+				matrix2.Print ("00") with (if(endState, RED, MAGENTA));
 				FTDI_Print("S");
 				PWM_Write(BUTTON_LED_RED, 255);
 				PWM_Write(BUTTON_LED_BLUE, 0);
@@ -262,7 +262,7 @@ main(){
 				///라인아웃(탈조) 시 스위치를 눌릅니다.
 				state = STATE_IDLE2;
 				endTick1 = Tick();
-				matrix1.Print("EL") with (YELLOW1);
+				matrix1.Print("EL") with (YELLOW);
 				matrix2.Print("/rLine /mOut");
 				FTDI_Print("R");
 				
@@ -275,7 +275,7 @@ main(){
 			}
 			elif(sw == SWITCH_BOTH){
 				///사용불가능을 의미
-				matrix1.SetColor(RED1);
+				matrix1.SetColor(RED);
 				Delay(1000);
 				///메뉴에 들어감.(설정값을 바꿀 수 있어요!)
 				PWM_Write(BUTTON_LED_RED, 0);
@@ -283,7 +283,7 @@ main(){
 				matrix1.SetColor(colorArr[Random()%16]);
 				menu();
 				endTick1 = Tick() - 3000;
-				matrix1.SetColor(ROSE1);
+				matrix1.SetColor(ROSE);
 				matrix1.Arrow(arrowDirection);
 				state = STATE_IDLE3;
 				
@@ -309,8 +309,8 @@ main(){
 		}
 		elif(state == STATE_DRIVE){
 			if(Tick() - driveTime > driveSecond){
-				matrix1.Print("%02d" % ((driveSecond/1000)%100)) with (if(endState, RED1, if(driveSecond >= 3000, colorArr[9-(driveSecond / 20000)], MAGENTA1)));
-				matrix2.Print("%02d" % ((driveSecond/1000)%100)) with (if(endState, RED1, if(driveSecond >= 3000, colorArr[9-(driveSecond / 20000)], MAGENTA1)));
+				matrix1.Print("%02d" % ((driveSecond/1000)%100)) with (if(endState, RED, if(driveSecond >= 3000, colorArr[9-(driveSecond / 20000)], MAGENTA)));
+				matrix2.Print("%02d" % ((driveSecond/1000)%100)) with (if(endState, RED, if(driveSecond >= 3000, colorArr[9-(driveSecond / 20000)], MAGENTA)));
 				driveSecond = driveSecond + 1000;
 			}
 			if(END_OR && endState == STATE_END){
@@ -323,8 +323,8 @@ main(){
 				endTick = Tick();
 				endTick1 = Tick();
 				state = STATE_END;
-				matrix1.Print("%02d" % (((driveSecond - 1000) / 1000) % 100)) with (WHITE1);
-				matrix2.Print("%02d" % (((driveSecond - 1000) / 1000) % 100)) with (WHITE1);
+				matrix1.Print("%02d" % (((driveSecond - 1000) / 1000) % 100)) with (WHITE);
+				matrix2.Print("%02d" % (((driveSecond - 1000) / 1000) % 100)) with (WHITE);
 				FTDI_Print("E");///타이머를 정지하기 위한 플래그
 				PWM_Write(BUTTON_LED_RED, 255);
 				PWM_Write(BUTTON_LED_BLUE, 64);
@@ -339,7 +339,7 @@ main(){
 				///라인아웃(탈조) 시 스위치를 눌릅니다.
 				state = STATE_IDLE2;
 				endTick1 = Tick();
-				matrix1.Print("EL") with (YELLOW1);
+				matrix1.Print("EL") with (YELLOW);
 				matrix2.Print("/rLine /mOut");
 				FTDI_Print("R");
 				PWM_Write(BUTTON_LED_RED, 16);
@@ -391,7 +391,7 @@ main(){
 				///라인아웃(탈조) 시 스위치를 눌릅니다.
 				state = STATE_IDLE2;
 				endTick1 = Tick();
-				matrix1.Print("EL") with (YELLOW1);
+				matrix1.Print("EL") with (YELLOW);
 				matrix2.Print("/rLine /mOut");
 				FTDI_Print("R");
 				PWM_Write(BUTTON_LED_RED, 16);
@@ -431,7 +431,7 @@ eventOut(event:int){
 		matrix1.Print("/r납땜기 /cPP박스에 /v넣어 주세요!");
 	}
 	elif(event == EVENT_OCLOCK){///매시 23분에 울립니다. 단, 21시 제외.
-		matrix1.Print("%02d" % DT_GetHour()) with (ORANGE1);
+		matrix1.Print("%02d" % DT_GetHour()) with (ORANGE);
 	}
 	elif(event == EVENT_23){///매시 23분에 울립니다. 단, 21시 제외.
 		matrix1.Print("/y화재예방! /c주행 속도/r는 /g1.5m/s /y이상으로!");
@@ -457,7 +457,7 @@ eventOut(event:int){
 Calibration(){
 	///준비 단계
 	///LED 화면에 빨간색 CA 출력(WhiteMin이라는 뜻).
-	matrix1.Print ("CA") with (RED1);
+	matrix1.Print ("CA") with (RED);
 	///IR센서 켜기
 	SENSOR_IR(1);
 	///적절한 시간동안 기다리기
@@ -492,7 +492,7 @@ Calibration(){
 	SENSOR_IR(0);
 	
 	///LED 화면에 파란색 CA 출력(BlackMin이라는 뜻.).
-	matrix1.Print ("CA") with (BLUE1);
+	matrix1.Print ("CA") with (BLUE);
 	
 	///BlackMin
 	while(1){
