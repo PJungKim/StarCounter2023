@@ -21,12 +21,166 @@
 
 **/
 
+///Basic Parts
+///Without those factors, starlit code doesn't work.
+
+///Standard Operators
+$import(stuop);
+
+$const(GetArgBytes$ref, 0x00008011, ref, int);
+
+///Operators Complements
+int(x:byte):int{
+	#result(x):int;
+	return(result & 0xFF);
+}
+
+byte(x:int):byte{
+    #result(x):byte;
+    return(result);
+}
+
+int64(x:int):int{
+    #result(x):int64;
+    return(result & 0xFFFFFFFF);
+}
+
+str(x:int):str{
+    return("%d" % x);
+}
+
+str(x:float):str{
+    return("%f" % x);
+}
+
+str(x:int64):str{
+    return("%lld" % x);
+}
+
+str(x:ref):str{
+    #result():str;
+    StrCpy(_result, x);
+    return(result);
+}
+
+
+$comma(v:str):str{
+    ///콤마를 찾는다.
+    len = strlen(_v);
+    
+    for(u = 0, u < len, u += 1){
+        if(v.string[u] == '.'){
+            break;
+        }
+    }
+    
+    temp = f"";
+    for(i)from(3)to(u-1){
+        if(i % 3 == 0){
+            strcpy(_temp, _v + u - i);
+            strcpy(_v + u - i, ",");
+            strcat(_v, _temp);
+        }
+    }
+    
+    return(v);
+}
+
+$fill(key:ref, v:str):str{
+    len = strlen(_v);
+    res = f"";
+    
+    for(u = 0, v.string[u] != 0, u += 1){
+        if(v.string[u] == ' '){
+            strcat(_res, key);
+        }
+        else{
+            temp = f"";
+            temp.string[0] = v.string[u];
+            temp.string[1] = 0;
+            strcat(_res, _temp);
+        }
+    }
+    
+    return(res);
+    
+}
+
+$align(mode:int, v:str):str{
+    ///띄어쓰기 기준으로 위치 조정.
+    ///앞의 띄어쓰기 개수 읽기
+    for(b = 0, v.string[b] == ' ', b += 1){}
+    if(mode == '>'){///기본 : 오른쪽 정렬
+        return(v);
+    }
+    elif(mode == '<'){///띄어쓰기 뒤로 빼기
+        temp = f"";
+        strcpy(_temp, _v + b);
+        v.string[b] = 0;
+        strcat(_temp, _v);
+        return(temp);
+    }
+    elif(mode == '^'){///띄어쓰기 뒤로 빼기
+        temp = f"";
+        strcpy(_temp, _v + b - b/2);
+        v.string[b - b/2] = 0;
+        strcat(_temp, _v);
+        return(temp);
+    }
+    elif(mode == '='){///띄어쓰기 뒤로 빼기
+        if(v.string[b] == '+' || v.string[b] == '-'){
+            v.string[0] = v.string[b];
+            v.string[b] = ' ';
+        }
+        return(v);
+    }
+}
+
+
+
+
+
+
+
+
+///Default Constants
+$const(TRUE, 1, int);
+$const(FALSE, 0, int);
+$const(NULL, 0, ref);
+
+///Defaultly, Starlit doesn't offers the unsigned type variable and short type(16-bit) variable.
+///You may define studio for 16-bit and unsigned type if you want to use it.
+
+///Previously, this pointer was the reference of self.
+##this(self_);
+
+///If I use the variable arguments, I have to define this class first.
+$class(VA_LIST){
+	#va:byte;
+}
+
+///Default For Structures
+##for{x}from{a}to{b}(for({x}={a},{x}<={b},{x}={x}+1));
+##{a}if{b}else{c}(if({b},{a},{c}));
+
+///The main function will operated by initialize function.
 svm_init(){
 	main();
 }
 
-///Standard Operators
-$import(stuop);
+
+
+
+
+
+
+
+
+
+
+
+
+///Part 1 : Functions of Strings and Input, Output of the string.
 $class(str){
 	#string:byte[256];
 }
@@ -39,13 +193,9 @@ $class(cin){
 	#val__:byte[4];
 }
 
-///Default Constants
-$const(TRUE, 1, int);
-$const(FALSE, 0, int);
-$const(NULL, 0, ref);
-
-
-
+$class(nullptr){
+	#val__:byte[4];
+}
 
 ///Universal Output Objects
 $const(STD_cout, 4, cout);
@@ -53,11 +203,24 @@ $const(MATR_cout, 4, cout);
 $const(FTDI_cout, 2, cout);
 $const(BLUE_cout, 1, cout);
 
+##STD_endl("\n");
+##OLED_endl("\n");
+##FTDI_endl("\n");
+##BLUE_endl("\n");
+
+///Universal Input Objects
+$const(STD_cin, 4, cin);
+$const(OLED_cin, 4, cin);
+$const(FTDI_cin, 2, cin);
+$const(BLUE_cin, 1, cin);
+
 ///Output Functions
 ///$const(Print$ref, 0x00010012, ref);
 ///$const(OLED_Print$ref, 0x00010012, ref);
 $const(FTDI_Print$ref, 0x000E2012, ref);
 ///$const(BLUE_Print$ref, 0x000F2012, ref);
+
+
 $const(MATR_PrintText$int$ref$int, 0x01100012, ref);
 $const(MATR_1, 0x00008000, int);
 $const(MATR_2, 0x00004000, int);
@@ -67,9 +230,68 @@ $const(MATR_4, 0x00001000, int);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///UART 관련 추가제공 함수
+$const(FTDI_Begin, 0x000E0012, ref);
+$const(FTDI_End, 0x000E1012, ref);
+$const(FTDI_Write$int, 0x000E4012, ref, int);
+$const(FTDI_Read, 0x000E5012, ref, int);
+$const(FTDI_Available, 0x000E6012, ref, int);
+$const(FTDI_Scan$int$ref, 0x000E7012, ref, int);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///UART 통신제어 속도변경
+$const(FTDI_Begin$int, 0x000F9012, ref);
+
+
+
+
+///Default String Functions
+///Those are used in C-Language
 ##strcpy(StrCpy);
 ##strcat(StrCat);
-///문자열 관련 기본 함수
+##strlen(StrLen);
+##strcmp(StrCmp);
+
+///String functions of Starlit.
 $const(StrCpy$ref$ref, 0x00010011, ref, ref);
 $const(StrCpy$ref$int, 0x00012011, ref, ref);
 $const(StrCpy$ref$float, 0x00013011, ref, ref);
@@ -82,6 +304,16 @@ $const(StrCat$ref$float, 0x00023011, ref, ref);
 $const($lt$ref$ref, 0x00020011, ref, ref);
 $const($lt$ref$int, 0x00022011, ref, ref);
 $const($lt$ref$float, 0x00023011, ref, ref);
+///Strlen
+$const(StrCmp$ref$ref, 0x00050011, ref, int);
+$const(StrLen$ref, 0x00052011, ref, int);
+
+///This is used for making printf-based functions.
+$const(vsprintf$ref$ref$ref, 0x00036011, ref);
+$const(vsprintf1$ref$ref$ref, 0x00037011, ref);
+
+///Those are defined in only Starlit.
+$const(Split$ref$int$ref, 0x00055011, ref, int);
 #stdStr(0):str;
 
 ///Cout 계열 함수
@@ -113,6 +345,72 @@ $shl(out:cout, st:float) : cout{
 	return(out);
 }
 
+///Cin 계열 함수
+$shr(in:cin, ret:_int) : cin{
+	#st():str;
+	if(int(in) == 2){
+		FTDI_Scan(5, _st);
+		ret = Atoi(_st);
+	}
+	return(in);
+}
+
+$shr(in:cin, ret:_float) : cin{
+	#st():str;
+	if(int(in) == 2){
+		FTDI_Scan(5, _st);
+		ret = Atof(_st);
+	}
+	return(in);
+}
+
+$shr(in:cin, ret:_str) : cin{
+	#st():str;
+	if(int(in) == 2){
+		FTDI_Scan(5, _st);
+		ret = st;
+	}
+	return(in);
+}
+
+$shr(in:cin, ret:_ref) : cin{
+	if(int(in) == 2){
+		FTDI_Scan(5, _ret);
+	}
+	return(in);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 COUT_Print__(out:cout, st:ref){
 	if(int(out) == 4){
 		MATR_PrintText(MATR_1, st, 15);
@@ -125,7 +423,7 @@ COUT_Print__(out:cout, st:ref){
 
 
 
-
+///String Operators
 $add(st1:ref, st2:ref) : str{
 	#s(0):str;
 	StrCpy(_s, st1);
@@ -156,51 +454,68 @@ $add(st1:ref, st2:str) : str{
 
 
 ///String Format Functions
-$const($mod$ref$int, 0x00030011, ref, str);
-$const($mod$ref$float, 0x00032011, ref, str);
-$const($mod$ref$int64, 0x00031011, ref, str);
-$const($mod$ref$ref, 0x00030011, ref, str);
+$const($mod$ref$int, 0x00033011, ref, str);
+$const($mod$ref$float, 0x00035011, ref, str);
+$const($mod$ref$int64, 0x00034011, ref, str);
+$const($mod$ref$ref, 0x00033011, ref, str);
+
+$mod(st:ref, v:str):str{
+    return(st % _v);
+}
+
+$mod(st:str, v:int):str{
+    return(_st % v);
+}
+
+$mod(st:str, v:float):str{
+    return(_st % v);
+}
+
+$mod(st:str, v:int64):str{
+    return(_st % v);
+}
+
+$mod(st:str, v:ref):str{
+    return(_st % v);
+}
+
+$mod(st:str, v:str):str{
+    return(_st % _v);
+}
 
 ///String to Value Functions
 $const(Atoi$ref, 0x00040011, ref, int);
 $const(Atol$ref, 0x00041011, ref, int64);
 $const(Atof$ref, 0x00042011, ref, float);
-///$const(Xtoi$ref, 0x000C4012, ref, float);
+$const(Xtoi$ref, 0x000C4012, ref, float);
+##atoi(Atoi);
+##atol(Atol);
+##atof(Atof);
+##xtoi(Xtoi);
 
 
-##strcmp(StrCmp);
 ##strncmp(StrnCmp);
-##strlen(StrLen);
 ///Strlen
-$const(StrCmp$ref$ref, 0x00050011, ref, int);
-$const(StrLen$ref$ref, 0x00052011, ref, int);
 $const(StrnCmp$ref$ref$int, 0x00053011, ref, int);
 
 
+///Part 2. Default Utilities.
 ///Timer Functions
 $const(Tick, 0x00100011, ref, int);
 $const(Delay$int, 0x00101011, ref);
 $const(DelayMicroseconds$int, 0x00103011, ref);
 
-
-
-///OLED 추가 지원 함수
-///$const(OLED_Clear, 0x00017012, ref);
-///나머지 함수는 color.shc에 정의됨.
-
-///Event LED 관련함수
-///$const(ELED_Begin, 0x01010012, ref);
-///$const(ELED_Write$int$int$int, 0x01012012, ref);
-///$const(ELED_End, 0x01011012, ref);
-
-///Sensor 관련 함수
-///$const(SENSOR_Begin, 0x01080012, ref);
-///$const(SENSOR_End, 0x01081012, ref);
-///$const(SENSOR_Value, 0x01082012, ref, int);
-
-
+///Random 관련 함수
 $const(TrueRandom, 0x01083012, ref, int);
 $const(Random, 0x01084012, ref, int);
+
+
+
+
+
+
+
+
 
 ///Button 관련 함수
 $const(SWITCH_Read, 0x000A0012, ref, int);
@@ -219,16 +534,7 @@ $const(SWITCH_BOTH_LONG, 0x07, int);
 
 
 
-///UART 관련 추가제공 함수
-$const(FTDI_Begin, 0x000E0012, ref);
-$const(FTDI_End, 0x000E1012, ref);
-$const(FTDI_Write$int, 0x000E4012, ref, int);
-$const(FTDI_Read, 0x000E5012, ref, int);
-$const(FTDI_Available, 0x000E6012, ref, int);
-$const(FTDI_Scan$int$ref, 0x000E7012, ref, int);
 
-///UART 통신제어 속도변경
-$const(FTDI_Begin$int, 0x000F9012, ref);
 
 $const(MATR_SendData$int$int, 0x07100012, ref);
 $const(MATR_SetColor$int$int, 0x07101012, ref);

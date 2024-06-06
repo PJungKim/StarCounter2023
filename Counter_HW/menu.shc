@@ -14,84 +14,68 @@ $class(menu_t){
 	}
 	
 	Print(){
-		matrix1.Print(self.text) with (self.color);
+		matrix[1].Print(self.text) with (self.color);
 	}
 }
 
-##MENU_N(9);
 
-ResetRecord(){
-	maxTime = 999999;
-	maxTime2 = 999999;
-	recentTime = 999999;
-}
-
-CleanMap(){
-	matrix2.Print("/r청소중/w입니다!");
-	///while(!SWITCH_Read()){}
-}
 
 menu(){
 	///청소할 때 메뉴에 진입해서 계수기가 작동하지 않게 합니다.
-	matrix2.Print("/r청소중/w입니다!");
-	#sw():int;
-	#mList(
-		menu_t(
-		menu_t("<-", WHITE,  NULL),
-		menu_t("CA", WHITE,  Calibration),///캘리브레이션 다시 함.
-		menu_t("RA", RED,    SensorRaw),///센서 순수 값
-		menu_t("NO", YELLOW, SensorNormal),///노멀라이즈된 값.
-		menu_t("ST", ORANGE, SensorState),///스테이트
-		menu_t("RS", BLUE,   ResetRecord),///기록삭제
-		menu_t("CL", MINT,   CleanMap),///기록삭제
-		///menu_t("TI", CYAN1,   TimeAttackMode),///타임어택
-		menu_t(">>", VIOLET, NULL),///오른쪽 방향 주행
-		menu_t("<<", VIOLET, NULL)///왼쪽 방향 주행
-		)
-	):menu_t[MENU_N];
-	#idx(0):int;
-	matrix1.Arrow(0x08);
-	///matrix1.Print("<-") with (WHITE1);
+	matrix[2].Print("/r청소중/w입니다!");
+	
+	///#mList():menu_t[8];
+	mList = [
+	    menu_t("<-", WHITE, NULL),
+	    menu_t("CA", WHITE,  Calibration),///캘리브레이션 다시 함.
+	    menu_t("RA", RED,    SensorRaw),///센서 순수 값
+	    menu_t("NO", YELLOW, SensorNormal),///노멀라이즈된 값.
+	    menu_t("ST", ORANGE, SensorState),///스테이트
+	    menu_t("RS", BLUE,   ResetRecord),///기록삭제
+	    menu_t(">>", VIOLET, NULL),///오른쪽 방향 주행
+	    menu_t("<<", VIOLET, NULL)///왼쪽 방향 주행
+	];
+	
+	idx = 0;
+	matrix[1].Arrow(0x08);
+
 	while(1){
 		sw = SWITCH_Read();
 		if(sw == SWITCH_BOTH){
 			if(idx == 0){
-				matrix1.Clear();
-				return();
+				matrix[1].Clear();
+				break;
 			}
-			///elif(idx == 2){
-			///	SensorRaw();
-			///}
-			elif(idx == MENU_N - 2){
+			elif(idx == sizeof(mList) / sizeof(menu_t) - 2){
 				maskStart = 0x70;
 				maskEnd = 0x07;
 				arrowDirection = ARROW_RIGHT;
-				matrix1.Clear();
-				return();
+				matrix[1].Clear();
+				break;
 			}
-			elif(idx == MENU_N - 1){
+			elif(idx == sizeof(mList) / sizeof(menu_t) - 1){
 				maskStart = 0x07;
 				maskEnd = 0x70;
 				arrowDirection = ARROW_LEFT;
-				matrix1.Clear();
-				return();
+				matrix[1].Clear();
+				break;
 			}
 			else{
 				mList[idx].Play();
 			}
-			matrix1.Clear();
+			matrix[1].Clear();
 			mList[idx].Print();
 		}
 		elif(sw == SWITCH_1){
-			idx = (idx + 1) % MENU_N;
+			idx = (idx + 1) %% (sizeof(mList) / sizeof(menu_t));
 			
-			matrix1.Clear();
+			matrix[1].Clear();
 			mList[idx].Print();
 		}
 		elif(sw == SWITCH_2){
-			idx = (idx + MENU_N - 1) % MENU_N;
+			idx = (idx - 1) %% (sizeof(mList) / sizeof(menu_t));
 			
-			matrix1.Clear();
+			matrix[1].Clear();
 			mList[idx].Print();
 		}
 	}
@@ -99,9 +83,7 @@ menu(){
 
 ///센서 값을 표시
 SensorRaw(){
-	#value():int;
-	#sw():int;
-	matrix1.Clear();
+	matrix[1].Clear();
 	while(1){
 		sw = SWITCH_Read();
 		if(sw == SWITCH_1){
@@ -111,38 +93,147 @@ SensorRaw(){
 			SENSOR_IR(1);
 		}
 		elif(sw == SWITCH_BOTH){
-			return();
+			break;
 		}
 		else{
-			value = sensor[0].GetRawValue();
-			matrix1.AddrWindow(1, 4, 1, 1);
-			matrix1.SetDot(0x000101 * (value / 16));
-			Delay(1);
-			value = sensor[1].GetRawValue();
-			matrix1.AddrWindow(1, 2, 1, 1);
-			matrix1.SetDot(0x000101 * (value / 16));
-			Delay(1);
-			value = sensor[2].GetRawValue();
-			matrix1.AddrWindow(1, 0, 1, 1);
-			matrix1.SetDot(0x000101 * (value / 16));
-			Delay(1);
-			value = sensor[4].GetRawValue();
-			matrix1.AddrWindow(6, 4, 1, 1);
-			matrix1.SetDot(0x010001 * (value / 16));
-			Delay(1);
-			value = sensor[5].GetRawValue();
-			matrix1.AddrWindow(6, 2, 1, 1);
-			matrix1.SetDot(0x010001 * (value / 16));
-			Delay(1);
-			value = sensor[6].GetRawValue();
-			matrix1.AddrWindow(6, 0, 1, 1);
-			matrix1.SetDot(0x010001 * (value / 16));
-			Delay(1);
-			matrix1.Print();
+		    for(i)from(0)to(2){
+		        value = sensor[i].GetRawValue();
+		        matrix[1].AddrWindow(1, 4-2*i, 1, 1);
+    			matrix[1].SetDot(0x000101 * (value / 16));
+    			Delay(1);
+		    }
+		    for(i)from(0)to(2){
+		        value = sensor[i+4].GetRawValue();
+		        matrix[1].AddrWindow(6, 4-2*i, 1, 1);
+    			matrix[1].SetDot(0x010001 * (value / 16));
+    			Delay(1);
+		    }
+			matrix[1].Print();
 			Delay(1);
 		}
 	}
 	SENSOR_IR(1);
+}
+
+
+///센서 값을 표시
+SensorNormal(){
+	matrix[1].Clear();
+	while(1){
+		sw = SWITCH_Read();
+		if(sw == SWITCH_1){
+			SENSOR_IR(0);
+		}
+		elif(sw == SWITCH_2){
+			SENSOR_IR(1);
+		}
+		elif(sw == SWITCH_BOTH){
+			break;
+		}
+		else{
+		    for(i)from(0)to(2){
+		        value = sensor[i].GetValue();
+		        matrix[1].AddrWindow(1, 4-2*i, 1, 1);
+    			matrix[1].SetDot(0x000101 * (value / 16));
+    			Delay(1);
+		    }
+		    for(i)from(0)to(2){
+		        value = sensor[i+4].GetValue();
+		        matrix[1].AddrWindow(6, 4-2*i, 1, 1);
+    			matrix[1].SetDot(0x010001 * (value / 16));
+    			Delay(1);
+		    }		
+			matrix[1].Print();
+			Delay(1);
+		}
+	}
+	SENSOR_IR(1);
+}
+
+
+SensorState(){
+	matrix[1].Clear();
+	ThresholdPrint();
+	while(1){
+		sw = SWITCH_Read();
+		if(sw == SWITCH_1){
+			///Threshold High를 제어합니다.
+			thh = int(SENSOR_DATAARR(5));
+			thl = int(SENSOR_DATAARR(6));
+			thh = thh + 256;
+			if(thh >= 4096){
+				thh = thl;
+			}
+			int(SENSOR_DATAARR(5)) = thh;
+			ThresholdPrint();
+		}
+		elif(sw == SWITCH_2){
+			///Threshold Low를 제어합니다.
+			thh = int(SENSOR_DATAARR(5));
+			thl = int(SENSOR_DATAARR(6));
+			thl = thl - 256;
+			if(thl < 0){
+				thl = thh;
+			}
+			int(SENSOR_DATAARR(6)) = thl;
+			ThresholdPrint();
+		}
+		elif(sw == SWITCH_BOTH){
+			break;
+		}
+		else{
+		    for(i)from(0)to(2){
+			    value = (SENSOR_GetState() >> i) & 0x01;
+			    matrix[1].AddrWindow(1, 4 - 2*i, 1, 1);
+			    matrix[1].SetDot(0x00FFFF * value);
+			    Delay(1);
+			}
+            for(i)from(0)to(2){
+			    value = (SENSOR_GetState() >> (4+i)) & 0x01;
+    			matrix[1].AddrWindow(6, 4 - 2*i, 1, 1);
+    			matrix[1].SetDot(0xFF00FF * value);
+    			Delay(1);
+			}
+			matrix[1].Print();
+			Delay(1);
+		}
+	}
+	SENSOR_IR(1);
+}
+
+
+ThresholdPrint(){
+	thl = int(SENSOR_DATAARR(6));
+	thh = int(SENSOR_DATAARR(5));
+	for(i)from(0)to(7){
+		matrix[1].AddrWindow(3, i, 1, 1);
+		if(thl >= (i+1) * 512){
+			matrix[1].SetDot(0x00FF00);
+		}
+		elif(thl < i * 512){
+			matrix[1].SetDot(0x000000);
+		}
+		else{
+			matrix[1].SetDot(0x000100 * ((thl % 512) >> 1));
+		}
+		matrix[1].AddrWindow(4, i, 1, 1);
+		if(thh >= (i+1) * 512){
+			matrix[1].SetDot(0xFF0000);
+		}
+		elif(thh < i * 512){
+			matrix[1].SetDot(0x000000);
+		}
+		else{
+			matrix[1].SetDot(0x010000 * ((thh % 512) >> 1));
+		}
+	}
+}
+
+///기록을 초기화하는 함수.
+ResetRecord(){
+	maxTime = 999999;
+	maxTime2 = 999999;
+	recentTime = 999999;
 }
 
 Jemyung(absents:int){
@@ -155,161 +246,6 @@ Jemyung(absents:int){
 	
 	OLED_cout << "/o세미나 보강/r은 /w방학 중 /g언제든지 /y환영/b합니다:)\n";
 }
-
-
-
-///센서 값을 표시
-SensorNormal(){
-	#value():int;
-	#sw():int;
-	matrix1.Clear();
-	while(1){
-		sw = SWITCH_Read();
-		if(sw == SWITCH_1){
-			SENSOR_IR(0);
-		}
-		elif(sw == SWITCH_2){
-			SENSOR_IR(1);
-		}
-		elif(sw == SWITCH_BOTH){
-			return();
-		}
-		else{
-			value = sensor[0].GetValue();
-			matrix1.AddrWindow(1, 4, 1, 1);
-			matrix1.SetDot(0x000101 * (value / 16));
-			Delay(1);
-			value = sensor[1].GetValue();
-			matrix1.AddrWindow(1, 2, 1, 1);
-			matrix1.SetDot(0x000101 * (value / 16));
-			Delay(1);
-			value = sensor[2].GetValue();
-			matrix1.AddrWindow(1, 0, 1, 1);
-			matrix1.SetDot(0x000101 * (value / 16));
-			Delay(1);
-			value = sensor[4].GetValue();
-			matrix1.AddrWindow(6, 4, 1, 1);
-			matrix1.SetDot(0x010001 * (value / 16));
-			Delay(1);
-			value = sensor[5].GetValue();
-			matrix1.AddrWindow(6, 2, 1, 1);
-			matrix1.SetDot(0x010001 * (value / 16));
-			Delay(1);
-			value = sensor[6].GetValue();
-			matrix1.AddrWindow(6, 0, 1, 1);
-			matrix1.SetDot(0x010001 * (value / 16));
-			Delay(1);
-			matrix1.Print();
-			Delay(1);
-		}
-	}
-	SENSOR_IR(1);
-}
-
-
-SensorState(){
-	#value():int;
-	#sw():int;
-	matrix1.Clear();
-	ThresholdPrint();
-	while(1){
-		sw = SWITCH_Read();
-		if(sw == SWITCH_1){
-			///Threshold High를 제어합니다.
-			#thh():int;
-			#thl():int;
-			thh = int(SENSOR_DATAARR(5));
-			thl = int(SENSOR_DATAARR(6));
-			thh = thh + 256;
-			if(thh >= 4096){
-				thh = thl;
-			}
-			int(SENSOR_DATAARR(5)) = thh;
-			ThresholdPrint();
-		}
-		elif(sw == SWITCH_2){
-			///Threshold Low를 제어합니다.
-			#thh():int;
-			#thl():int;
-			thh = int(SENSOR_DATAARR(5));
-			thl = int(SENSOR_DATAARR(6));
-			thl = thl - 256;
-			if(thl < 0){
-				thl = thh;
-			}
-			int(SENSOR_DATAARR(6)) = thl;
-			ThresholdPrint();
-		}
-		elif(sw == SWITCH_BOTH){
-			return();
-		}
-		else{
-			value = (SENSOR_GetState() >> 0) & 0x01;
-			matrix1.AddrWindow(1, 4, 1, 1);
-			matrix1.SetDot(0x00FFFF * value);
-			Delay(1);
-			value = (SENSOR_GetState() >> 1) & 0x01;
-			matrix1.AddrWindow(1, 2, 1, 1);
-			matrix1.SetDot(0x00FFFF * value);
-			Delay(1);
-			value = (SENSOR_GetState() >> 2) & 0x01;
-			matrix1.AddrWindow(1, 0, 1, 1);
-			matrix1.SetDot(0x00FFFF * value);
-			Delay(1);
-			value = (SENSOR_GetState() >> 4) & 0x01;
-			matrix1.AddrWindow(6, 4, 1, 1);
-			matrix1.SetDot(0xFF00FF * value);
-			Delay(1);
-			value = (SENSOR_GetState() >> 5) & 0x01;
-			matrix1.AddrWindow(6, 2, 1, 1);
-			matrix1.SetDot(0xFF00FF * value);
-			Delay(1);
-			value = (SENSOR_GetState() >> 6) & 0x01;
-			matrix1.AddrWindow(6, 0, 1, 1);
-			matrix1.SetDot(0xFF00FF * value);
-			Delay(1);
-			matrix1.Print();
-			Delay(1);
-		}
-	}
-	SENSOR_IR(1);
-}
-
-
-
-
-
-ThresholdPrint(){
-	#thl():int;
-	#thh():int;
-	thl = int(SENSOR_DATAARR(6));
-	thh = int(SENSOR_DATAARR(5));
-	#i():int;
-	for(i)from(0)to(7){
-		matrix1.AddrWindow(3, i, 1, 1);
-		if(thl >= (i+1) * 512){
-			matrix1.SetDot(0x00FF00);
-		}
-		elif(thl < i * 512){
-			matrix1.SetDot(0x000000);
-		}
-		else{
-			matrix1.SetDot(0x000100 * ((thl % 512) >> 1));
-		}
-		matrix1.AddrWindow(4, i, 1, 1);
-		if(thh >= (i+1) * 512){
-			matrix1.SetDot(0xFF0000);
-		}
-		elif(thh < i * 512){
-			matrix1.SetDot(0x000000);
-		}
-		else{
-			matrix1.SetDot(0x010000 * ((thh % 512) >> 1));
-		}
-	}
-}
-
-
 
 
 

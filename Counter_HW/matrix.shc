@@ -22,6 +22,7 @@ $const(ROSE, 0xFF0066, int);
 $const(WHITE, 0xFFFFFF, int);
 
 
+#matrix():matrix_t[4];
 
 ##Print {text} with {color}(Print3({text}, {color}));
 
@@ -119,3 +120,11 @@ matrix_t(cs:int, color:int, fps:int):matrix_t{
 	result.SetColor(color);
 	return(result);
 }
+
+MATR_Init(){
+    matrix[0] = matrix_t(MATR_1);
+    matrix[1] = matrix_t(MATR_4);
+	matrix[2] = matrix_t(MATR_3);
+	matrix[3] = matrix_t(MATR_2);
+}
+
