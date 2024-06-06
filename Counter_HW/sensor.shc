@@ -4,41 +4,70 @@
 $import(studio.shc);
 
 $class(sensor_t){
-	#raw__:ref;
-	#blackMin__:ref;
-	#whiteMin__:ref;
-	#value__:ref;
+	#raw:_int;
+	#blackMin:_int;
+	#whiteMin:_int;
+	#value:_int;
+	#rtime:_int;
+	#ftime:_int;
+	#flag:_int;
 	
 	GetRawValue():int{
-		#result():int;
-		result = int(self.raw__);
+		result = self.raw;
 		return(result);
 	}
 	
 	GetBlackMin():int{
-		#result():int;
-		result = int(self.blackMin__);
+		result = self.blackMin;
 		return(result);
 	}
 	
 	SetBlackMin(value:int){
-		int(self.blackMin__) = value;
+		self.blackMin = value;
 	}
 	
 	GetWhiteMin():int{
-		#result():int;
-		result = int(self.whiteMin__);
+		result = self.whiteMin;
 		return(result);
 	}
 	
 	SetWhiteMin(value:int){
-		int(self.whiteMin__) = value;
+		self.whiteMin = value;
 	}
 	
 	GetValue():int{
-		#result():int;
-		result = int(self.value__);
+		result = self.value;
 		return(result);
+	}
+	
+	///Flag를 활성화하면 센서 인식 플래그 이후 시간이 바뀌지 않습니다.
+	RisingTimeFlagEnable(){
+	    self.flag |= 0x01;
+	}
+	
+	FallingTimeFlagEnable(){
+	    self.flag |= 0x04;
+	}
+	
+	///Flag를 비활성화하면 가장 마지막에 발생한 Edge를 구합니다.
+	RisingTimeFlagDisable(){
+	    self.flag &= 0xFC;
+	}
+	
+	FallingTimeFlagDisable(){
+	    self.flag &= 0xF3;
+	}
+	
+	GetRisingTime():int{
+        result = self.rtime;
+        self.flag &= 0xFD;///다음에도 센서 작동하게 함.
+        return(result);
+	}
+	
+	GetFallingTime():int{
+        result = self.ftime;
+        self.flag &= 0xF7;
+        return(result);
 	}
 }
 
@@ -46,10 +75,13 @@ $class(sensor_t){
 SENSOR_Init(){
 	#i(0):int;
 	for (i) from (0) to (7){
-		sensor[i].raw__ = SENSOR_DATAARR(0) + (4 * i);
-		sensor[i].blackMin__ = SENSOR_DATAARR(1) + (4 * i);
-		sensor[i].whiteMin__ = SENSOR_DATAARR(2) + (4 * i);
-		sensor[i].value__ = SENSOR_DATAARR(3) + (4 * i);
+		sensor[i].raw_ = SENSOR_DATAARR(0) + (4 * i);
+		sensor[i].blackMin_ = SENSOR_DATAARR(1) + (4 * i);
+		sensor[i].whiteMin_ = SENSOR_DATAARR(2) + (4 * i);
+		sensor[i].value_ = SENSOR_DATAARR(3) + (4 * i);
+		sensor[i].flag_ = SENSOR_DATAARR(8) + (4 * i);
+		sensor[i].rtime_ = SENSOR_DATAARR(9) + (4 * i);
+		sensor[i].ftime_ = SENSOR_DATAARR(10) + (4 * i);
 	}
 	SENSOR_Threshold(1024, 768);
 }
