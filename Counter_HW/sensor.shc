@@ -61,12 +61,14 @@ $class(sensor_t){
 	GetRisingTime():int{
         result = self.rtime;
         self.flag &= 0xFD;///다음에도 센서 작동하게 함.
+        self.rtime = 0;
         return(result);
 	}
 	
 	GetFallingTime():int{
         result = self.ftime;
         self.flag &= 0xF7;
+        self.ftime = 0;
         return(result);
 	}
 }
@@ -96,6 +98,40 @@ SENSOR_GetState():int{
 	result = int(SENSOR_DATAARR(4));
 	result = (~result) & 0xFF;
 	return(result);
+}
+
+SENSOR_StartTime(arrowDirection:int):int{
+    #result():int[4];
+    if(arrowDirection == ARROW_RIGHT){
+        result[i:0:2] = sensor[i+4].GetFallingTime();
+    }
+    else{
+        result[i:0:2] = sensor[i].GetFallingTime();
+    }
+    
+    for(i)from(0)to(2){
+        if(result[i] == 0){
+            result[i] = 2147483647;
+        }
+    }
+    
+    min = 2147483647;
+    min = if(result[i:0:2]<min,result[i],min);
+    return(min); 
+}
+
+SENSOR_EndTime(arrowDirection:int):int{
+    #result():int[4];
+    if(arrowDirection == ARROW_RIGHT){
+        result[i:0:2] = sensor[i].GetRisingTime();
+    }
+    else{
+        result[i:0:2] = sensor[i+4].GetRisingTime();
+    }
+    
+    max = 0;
+    max = if(result[i:0:2]>max, result[i], max);
+    return(max);
 }
 
 

@@ -103,6 +103,8 @@ main(){
 	endTick1 = 0;
 	driveSecond = 0;
 	driveTime = 0;
+	
+	driveTime2 = 0;
 
 	
 	hhh = 0;
@@ -115,6 +117,10 @@ main(){
 	strcpy(_contestTxt, "/m계수기");
 	
 	matrix[2].Print(contestTxt);
+	sensor[0:7].FallingTimeFlagEnable();
+	SENSOR_StartTime(arrowDirection);
+	sensor[0:7].RisingTimeFlagDisable();
+	
 	while(1){
 		sw = SWITCH_Read();
 		#re(0):str;
@@ -206,6 +212,8 @@ main(){
 				arrowDirection = ARROW_RIGHT;
 			}
 			matrix[1].Arrow(arrowDirection);
+			
+		    SENSOR_StartTime(arrowDirection);
 		}
 		
 		
@@ -215,6 +223,7 @@ main(){
 				state = STATE_DRIVE;
 				driveSecond = 1000;
 				driveTime = Tick();
+				driveTime2 = SENSOR_StartTime(arrowDirection);
 				matrix[1].Print ("00") with (if(endState, RED, MAGENTA));
 				matrix[2].Print ("00") with (if(endState, RED, MAGENTA));
 				FTDI_Print("S");
@@ -228,12 +237,12 @@ main(){
 				matrix[2].Print("/w최고기록:/g%d/m:/y%03d\n" % (maxTime / 1000) % (maxTime % 1000) + contestTxt);
 				PWM_Write(BUTTON_LED_RED, 0);
 				PWM_Write(BUTTON_LED_BLUE, 255);
-				matrix[1].SetColor(colorArr[Random() % 16]);
+				matrix[1].SetColor(colorArr[Random() % (sizeof(colorArr) / sizeof(int))]);
 			}
 			elif(state == STATE_IDLE3 && Tick() - endTick1 > 5000){
 				state = STATE_IDLE;
 				matrix[2].Print("/w최고기록:/g%d/m:/y%03d\n" % (maxTime / 1000) % (maxTime % 1000) + contestTxt);
-				matrix[1].SetColor(colorArr[Random() % 16]);
+				matrix[1].SetColor(colorArr[Random() % (sizeof(colorArr) / sizeof(int))]);
 				PWM_Write(BUTTON_LED_RED, 0);
 				PWM_Write(BUTTON_LED_BLUE, 255);
 			}
@@ -272,12 +281,13 @@ main(){
 				///메뉴에 들어감.(설정값을 바꿀 수 있어요!)
 				PWM_Write(BUTTON_LED_RED, 0);
 				PWM_Write(BUTTON_LED_BLUE, 0);
-				matrix[1].SetColor(colorArr[Random()%16]);
+				matrix[1].SetColor(colorArr[Random() % (sizeof(colorArr) / sizeof(int))]);
 				menu();
 				endTick1 = Tick() - 3000;
 				matrix[1].SetColor(ROSE);
 				matrix[1].Arrow(arrowDirection);
 				state = STATE_IDLE3;
+				SENSOR_StartTime(arrowDirection);
 				
 				PWM_Write(BUTTON_LED_RED, 255);
 				PWM_Write(BUTTON_LED_BLUE, 0);				
@@ -330,6 +340,7 @@ main(){
 			if(sw == 0x01 || (!StrCmp(_re, "R"))){
 				///라인아웃(탈조) 시 스위치를 눌릅니다.
 				state = STATE_IDLE2;
+				SENSOR_StartTime(arrowDirection);
 				endTick1 = Tick();
 				matrix[1].Print("EL") with (YELLOW);
 				matrix[2].Print("/rLine /mOut");
@@ -355,9 +366,11 @@ main(){
 			elif(!END_OR && Tick() - endTick1 > 2000){///계수기 이슈: 피트인 시간이 너무 짧아서 2초로 늘림.
 				///정상주행, 센서가 인식하지 않는 시점을 기준으로 시간을 최종 결정.
 				state = STATE_IDLE2;
-				recentTime = endTick1 - driveTime;
+				recentTime2 = endTick1 - driveTime;
+				recentTime = SENSOR_EndTime(arrowDirection) - driveTime2;
+				SENSOR_StartTime(arrowDirection);
 				endTick1 = Tick();
-				matrix[1:2].Print("/r%02d/c./m%03d" % (recentTime / 1000) % (recentTime % 1000));
+				matrix[1:2].Print("/r%02d/c./m%03d/o(%+02d)" % (recentTime / 1000) % (recentTime % 1000) % (recentTime - recentTime2));
 				FTDI_Print("E");
 				Delay(50);
 				FTDI_cout << "%06d!" % recentTime; ///규정상 주행시간보내고 느낌표 보내는 걸로 되어 있음.
@@ -381,6 +394,7 @@ main(){
 			if(sw == SWITCH_1 || (!StrCmp(_re, "R"))){
 				///라인아웃(탈조) 시 스위치를 눌릅니다.
 				state = STATE_IDLE2;
+				SENSOR_StartTime(arrowDirection);
 				endTick1 = Tick();
 				matrix[1].Print("EL") with (YELLOW);
 				matrix[2].Print("/rLine /mOut");
@@ -396,6 +410,7 @@ main(){
 			}
 			elif (Tick() - endTick1 > 1000){
 				state = STATE_IDLE2;
+				SENSOR_StartTime(arrowDirection);
 			}
 		}
 		elif(state == STATE_ERR_END){
@@ -405,6 +420,7 @@ main(){
 			}
 			elif (Tick() - endTick1 > 1000){
 				state = STATE_IDLE2;
+    			SENSOR_StartTime(arrowDirection);
 			}
 		}
 		

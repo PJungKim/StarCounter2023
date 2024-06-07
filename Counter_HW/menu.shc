@@ -131,13 +131,13 @@ SensorNormal(){
 			break;
 		}
 		else{
-		    for(i)from(0)to(2){
+		    for(i)from(0)to(2){///Left Sensor
 		        value = sensor[i].GetValue();
 		        matrix[1].AddrWindow(1, 4-2*i, 1, 1);
     			matrix[1].SetDot(0x000101 * (value / 16));
     			Delay(1);
 		    }
-		    for(i)from(0)to(2){
+		    for(i)from(0)to(2){///Right Sensor
 		        value = sensor[i+4].GetValue();
 		        matrix[1].AddrWindow(6, 4-2*i, 1, 1);
     			matrix[1].SetDot(0x010001 * (value / 16));

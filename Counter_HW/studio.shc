@@ -75,12 +75,26 @@ $comma(v:str):str{
     }
     
     temp = f"";
+    cnt = 0;
     for(i)from(3)to(u-1){
+        if(v.string[u - i - 1] == ' '){
+            break;
+        }
         if(i % 3 == 0){
             strcpy(_temp, _v + u - i);
             strcpy(_v + u - i, ",");
             strcat(_v, _temp);
+            cnt+=1;
         }
+    }
+    
+    if(cnt >= u - i){
+        strcpy(_temp, _v + u - i);
+        return(temp);
+    }
+    else{
+        strcpy(_temp, _v + cnt);
+        return(temp);
     }
     
     return(v);

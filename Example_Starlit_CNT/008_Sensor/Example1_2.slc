@@ -1,0 +1,37 @@
+
+$import(..\..\counter_HW\studio.shc);
+$import(..\..\counter_HW\matrix.shc);
+$import(..\..\counter_HW\sensor.shc);///센서 라이브러리 추가해야 함.
+$target(counter.sbc);
+
+
+main(){
+    matrix = matrix_t(MATR_3);
+    matrix2 = matrix_t(MATR_4);
+    
+    ///센서를 초기화합니다.
+    SENSOR_Init();
+    SENSOR_Begin();
+    SENSOR_IR(1);
+    
+    ///0~400까지만 일단 사용.
+    sensor[0:7].SetBlackMin(0);
+    sensor[0:7].SetWhiteMin(600);
+    sensor[0].RisingTimeFlagDisable();
+    
+    prevTime = 0;
+    
+    while(!SWITCH_Read()){
+        curTime = sensor[0].GetFallingTime();
+        if(prevTime != curTime){
+            matrix.Print(f"{(curTime - prevTime) / 1000:02d}") with (RED);
+            matrix2.Print(f"{(curTime - prevTime) / 10 % 100:02d}") with (RED);
+            prevTime = curTime;
+        }
+    }
+    
+    
+    
+    
+}
+
